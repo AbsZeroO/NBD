@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "client_type")
 @DiscriminatorColumn(name = "client_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class ClientType {
     @Id
@@ -14,6 +15,5 @@ public abstract class ClientType {
     public abstract int getMaxVehicle();
     public abstract double applyDiscount(double price);
     public abstract String getTypeInfo();
-
 
 }
