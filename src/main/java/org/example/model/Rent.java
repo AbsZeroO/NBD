@@ -104,4 +104,25 @@ public class Rent {
                 ", endTime=" + (endTime != null ? endTime : "not yet ended");
     }
 
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public LocalDateTime getBeginTime() {
+        return beginTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
 }

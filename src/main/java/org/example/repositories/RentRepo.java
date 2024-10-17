@@ -4,8 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import org.example.model.Client;
 import org.example.model.Rent;
+import org.example.model.Vehicle;
 
 import java.util.List;
 
@@ -25,11 +25,15 @@ public class RentRepo implements IRepo<Rent> {
     public void Add(Rent entity) {
         try {
             transaction.begin();
+
             entityManager.persist(entity);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+
             e.printStackTrace();
+
         }
     }
 
@@ -37,20 +41,38 @@ public class RentRepo implements IRepo<Rent> {
     public void Delete(Rent entity) {
         try {
             transaction.begin();
+
             entityManager.remove(entity);
+
             transaction.commit();
+
         } catch (Exception e) {
             transaction.rollback();
+
             e.printStackTrace();
+
         }
     }
 
     @Override
     public void Update(Rent entity) {
         try {
+            Vehicle vehicle1 = entity.getVehicle();
+            Vehicle vehicle2 = entityManager.find(Vehicle.class, entity.getVehicle().getId());
+
+            vehicle2.setRented(vehicle1.isRented());
+            vehicle2.setArchived(vehicle1.isArchived());
+            vehicle2.setBasePrice(vehicle1.getBasePrice());
+            vehicle2.setPlateNumber(vehicle1.getPlateNumber());
+            vehicle2.setEngineDisplacement(vehicle1.getEngineDisplacement());
+
             transaction.begin();
+
             entityManager.merge(entity);
+            entityManager.merge(vehicle2);
+
             transaction.commit();
+
         } catch(Exception e) {
             transaction.rollback();
             e.printStackTrace();
@@ -66,5 +88,15 @@ public class RentRepo implements IRepo<Rent> {
     public List<Rent> getAll() {
         String jpql = "SELECT r FROM Rent r";
         return entityManager.createQuery(jpql, Rent.class).getResultList();
+    }
+
+    public Rent findRentById(Long id) {
+        String jpql = "SELECT r FROM Rent r WHERE r.id = :rentId";
+
+        return entityManager.createQuery(jpql, Rent.class)
+                .setParameter("rentId", id)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 }

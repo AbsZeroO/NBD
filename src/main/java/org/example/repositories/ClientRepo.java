@@ -17,10 +17,10 @@ public class ClientRepo implements IRepo<Client> {
     }
 
     @Override
-    public void Add(Client client) {
+    public void Add(Client entity) {
         try {
             transaction.begin();
-            entityManager.persist(client);
+            entityManager.persist(entity);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -29,10 +29,10 @@ public class ClientRepo implements IRepo<Client> {
     }
 
     @Override
-    public void Delete(Client client) {
+    public void Delete(Client entity) {
         try {
             transaction.begin();
-            entityManager.remove(client);
+            entityManager.remove(entity);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -42,10 +42,10 @@ public class ClientRepo implements IRepo<Client> {
 
     // update client or add client to database if not exits
     @Override
-    public void Update(Client client) {
+    public void Update(Client entity) {
         try {
             transaction.begin();
-            entityManager.merge(client);
+            entityManager.merge(entity);
             transaction.commit();
         } catch(Exception e) {
             transaction.rollback();

@@ -10,7 +10,7 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "client_id")
-    private Long personalId;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -59,7 +59,7 @@ public class Client implements Serializable {
     public String getClientInfo() {
         return "First name: " + firstName
                 + ", Last Name: " + lastName
-                + ", PersonalID: " + personalId
+                + ", PersonalID: " + id
                 + ", Client Type: " + clientType;
     }
 
@@ -75,8 +75,8 @@ public class Client implements Serializable {
         return lastName;
     }
 
-    public Long getPersonalId() {
-        return personalId;
+    public Long getId() {
+        return id;
     }
 
     public Address getAddress() {

@@ -85,4 +85,8 @@ public class Vehicle {
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
