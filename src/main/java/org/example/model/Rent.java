@@ -15,7 +15,8 @@ public class Rent {
     @ManyToOne()
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
-    @ManyToOne()
+
+    @ManyToOne
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
