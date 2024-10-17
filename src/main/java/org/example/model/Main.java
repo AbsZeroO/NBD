@@ -20,8 +20,12 @@ public class Main {
         System.out.println("Dodano klienta: " + client.getClientInfo());
 
         // Tworzenie pojazdu
-        Vehicle vehicle = new Vehicle("ABC1234", 100.0, false);
+        Vehicle vehicle = new Vehicle("ABC1234", 195, 100.0, false);
         vehicleRepo.Add(vehicle);
+        System.out.println("Dodano pojazd: " + vehicle.getVehicleInfo());
+
+        Vehicle vehicle2 = new Car("ABC1234", 50, 100.0, false, SegmentType.E);
+        vehicleRepo.Add(vehicle2);
         System.out.println("Dodano pojazd: " + vehicle.getVehicleInfo());
 
         // Tworzenie wypożyczenia

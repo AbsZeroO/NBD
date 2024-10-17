@@ -11,8 +11,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "bicycle")
 public class Bicycle extends Vehicle {
 
-    public Bicycle(String plateNumber, double basePrice, boolean rented) {
-        super(plateNumber, basePrice, rented);
+    public Bicycle(String plateNumber, int engineDisplacement, double basePrice, boolean rented) {
+        super(plateNumber, engineDisplacement, basePrice, rented);
     }
 
     public Bicycle() {

@@ -11,10 +11,11 @@ public class Car extends Vehicle {
     @Enumerated(EnumType.STRING)
     private SegmentType segmentType;
 
-    public Car(String plateNumber, SegmentType segmentType, double basePrice, boolean rented) {
-        super(plateNumber, basePrice, rented);
+    public Car(String plateNumber, int engineDisplacement, double basePrice, boolean rented, SegmentType segmentType) {
+        super(plateNumber, engineDisplacement, basePrice, rented);
         this.segmentType = segmentType;
     }
+
 
     public Car() {
 

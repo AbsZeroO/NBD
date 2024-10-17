@@ -28,8 +28,9 @@ public class Vehicle {
     @Column(name = "is_archived")
     private boolean archived;
 
-    public Vehicle(String plateNumber, double basePrice, boolean rented) {
+    public Vehicle(String plateNumber, int engineDisplacement, double basePrice, boolean rented) {
         this.plateNumber = plateNumber;
+        this.engineDisplacement =  engineDisplacement;
         this.basePrice = basePrice;
         this.rented = false;
         this.archived = false;
