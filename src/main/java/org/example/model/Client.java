@@ -48,6 +48,10 @@ public class Client implements Serializable {
         return clientType.applyDiscount(price);
     }
 
+    public ClientType getClientType() {
+        return clientType;
+    }
+
     public void setClientType(ClientType clientType) {
         this.clientType = clientType;
     }

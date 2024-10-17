@@ -9,11 +9,17 @@ public class Main {
     public static void main(String[] args) {
         Client client = new Client("Filip", "Maciaszek", new Address("Lodz", "Radwanska", "5"),
                 new Gold());
+
+        System.out.println(client.getClientType().getTypeInfo().compareTo("Gold"));
+
+        Address address = new Address("Skierniewice", "Pały", "69");
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
 
+        entityManager.persist(address);
         entityManager.persist(client);
 
         entityManager.getTransaction().commit();
