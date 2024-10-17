@@ -1,9 +1,6 @@
 package org.example;
 
-import org.example.model.Client;
-import org.example.model.Rent;
-import org.example.model.Vehicle;
-import org.example.model.SegmentType;
+import org.example.model.*;
 import org.example.repositories.ClientRepo;
 import org.example.repositories.RentRepo;
 import org.example.repositories.VehicleRepo;
@@ -18,7 +15,7 @@ public class Main {
         RentRepo rentRepo = new RentRepo();
 
         // Tworzenie klienta
-        Client client = new Client("Jan Kowalski", "jan.kowalski@example.com");
+        Client client = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Gold());
         clientRepo.Add(client);
         System.out.println("Dodano klienta: " + client.getClientInfo());
 
@@ -33,16 +30,12 @@ public class Main {
         System.out.println("Dodano wypożyczenie: " + rent.getRentInfo());
 
         // Zmiana stanu wypożyczenia po 2 dniach
-        try {
-            Thread.sleep(2000); // symulacja upływu czasu
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         rent.endRent(LocalDateTime.now().plusDays(2)); // zakończenie wypożyczenia
         rentRepo.Update(rent); // aktualizacja wypożyczenia
         System.out.println("Zakończono wypożyczenie: " + rent.getRentInfo());
 
         // Usuwanie pojazdu i klienta
+        rentRepo.Delete(rent);
         vehicleRepo.Delete(vehicle);
         clientRepo.Delete(client);
         System.out.println("Usunięto pojazd i klienta.");

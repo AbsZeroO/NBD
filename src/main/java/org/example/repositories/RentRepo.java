@@ -1,9 +1,6 @@
 package org.example.repositories;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import org.example.model.Rent;
 import org.example.model.Vehicle;
 
@@ -73,6 +70,9 @@ public class RentRepo implements IRepo<Rent> {
 
             transaction.commit();
 
+        } catch (OptimisticLockException e) {
+            transaction.rollback();
+            System.out.println("Optimistic lock exception: The entity has been modified by another transaction.");
         } catch(Exception e) {
             transaction.rollback();
             e.printStackTrace();
