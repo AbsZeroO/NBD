@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 
 import org.example.model.*;
 import org.example.repositories.ClientRepo;
@@ -17,6 +17,14 @@ public class Main {
         // Tworzenie klienta
         Client client = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Gold());
         clientRepo.Add(client);
+        System.out.println("Dodano klienta: " + client.getClientInfo());
+
+        Client client2 = new Client("Macieke", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
+        clientRepo.Add(client2);
+        System.out.println("Dodano klienta: " + client.getClientInfo());
+
+        Client client3 = new Client("Macieasdke", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
+        clientRepo.Add(client3);
         System.out.println("Dodano klienta: " + client.getClientInfo());
 
         // Tworzenie pojazdu
