@@ -32,8 +32,7 @@ public class Rent {
     @Version
     private long version;
 
-    public Rent(long id, Client client, Vehicle vehicle, LocalDateTime beginTime) {
-        this.id = id;
+    public Rent(Client client, Vehicle vehicle, LocalDateTime beginTime) {
         this.client = client;
         this.vehicle = vehicle;
         this.vehicle.setRented(true);
