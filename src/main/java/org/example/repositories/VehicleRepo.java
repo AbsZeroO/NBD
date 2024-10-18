@@ -20,7 +20,6 @@ public class VehicleRepo implements IRepo<Vehicle> {
     }
 
 
-
     @Override
     public void Add(Vehicle entity) {
         try {

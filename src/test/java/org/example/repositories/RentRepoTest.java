@@ -6,10 +6,13 @@ import org.example.model.Client;
 import org.example.model.Gold;
 import org.example.model.Rent;
 import org.example.model.Vehicle;
+import org.hibernate.StaleObjectStateException;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -150,4 +153,51 @@ class RentRepoTest {
             emf.close();
         }
     }
+
+    /* Nie wiem no*/
+    @Test
+    void testOptimisticLockingUsingRepo() throws ExecutionException, InterruptedException {
+        RentRepo rentRepo1 = new RentRepo(); 
+        RentRepo rentRepo2 = new RentRepo(); 
+
+        Vehicle vehicle = new Vehicle("ABC1234", 195, 100.0, false);
+        Client client = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Gold());
+        Rent rent = new Rent(client, vehicle, LocalDateTime.now());
+
+        ClientRepo clientRepo = new ClientRepo();
+        VehicleRepo vehicleRepo = new VehicleRepo();
+
+        clientRepo.Add(client);
+        vehicleRepo.Add(vehicle);
+        rentRepo.Add(rent);
+
+        CompletableFuture<Void> transaction1 = CompletableFuture.runAsync(() -> {
+            try {
+                Rent rent1 = rentRepo1.Find(rent.getId());
+                rent1.endRent(LocalDateTime.now().plusDays(2));
+                rentRepo1.Update(rent1);
+            } catch (StaleObjectStateException e) {
+                System.out.println("OptimisticLockException caught in transaction1: ");
+            }
+        });
+
+        CompletableFuture<Void> transaction2 = CompletableFuture.runAsync(() -> {
+            try {
+                Rent rent2 = rentRepo2.Find(rent.getId());
+                rent2.endRent(LocalDateTime.now().plusDays(3));
+                rentRepo2.Update(rent2);
+            } catch (StaleObjectStateException e) {
+                System.out.println("OptimisticLockException caught in transaction2: ");
+            }
+        });
+
+        // Czekaj na zakończenie obu transakcji
+        CompletableFuture.allOf(transaction1, transaction2).get();
+
+        // Sprawdzanie wyników
+        Rent updatedRent = rentRepo1.Find(rent.getId());
+        assertNotNull(updatedRent.getEndTime());
+        assertEquals(LocalDateTime.now().plusDays(2).getDayOfMonth(), updatedRent.getEndTime().getDayOfMonth());
+    }
+
 }

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicjalizacja repozytoriów
         ClientRepo clientRepo = new ClientRepo();
         VehicleRepo vehicleRepo = new VehicleRepo();
         RentRepo rentRepo = new RentRepo();
@@ -17,39 +16,34 @@ public class Main {
         // Tworzenie klienta
         Client client = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Gold());
         clientRepo.Add(client);
-        System.out.println("Dodano klienta: " + client.getClientInfo());
 
         Client client2 = new Client("Macieke", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
         clientRepo.Add(client2);
-        System.out.println("Dodano klienta: " + client.getClientInfo());
 
         Client client3 = new Client("Macieasdke", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
         clientRepo.Add(client3);
-        System.out.println("Dodano klienta: " + client.getClientInfo());
 
         // Tworzenie pojazdu
         Vehicle vehicle = new Vehicle("ABC1234", 195, 100.0, false);
         vehicleRepo.Add(vehicle);
-        System.out.println("Dodano pojazd: " + vehicle.getVehicleInfo());
 
-        Vehicle vehicle2 = new Car("ABC1234", 50, 100.0, false, SegmentType.E);
-        vehicleRepo.Add(vehicle2);
-        System.out.println("Dodano pojazd: " + vehicle.getVehicleInfo());
+        Vehicle car = new Car("EL 0000", 50, 100.0, false, SegmentType.E);
+        vehicleRepo.Add(car);
+
+        Vehicle bicycle = new Bicycle("EL 1111", 1000, 200.0, false);
+        vehicleRepo.Add(bicycle);
 
         // Tworzenie wypożyczenia
         Rent rent = new Rent(client, vehicle, LocalDateTime.now());
         rentRepo.Add(rent);
-        System.out.println("Dodano wypożyczenie: " + rent.getRentInfo());
 
         // Zmiana stanu wypożyczenia po 2 dniach
-        rent.endRent(LocalDateTime.now().plusDays(2)); // zakończenie wypożyczenia
-        rentRepo.Update(rent); // aktualizacja wypożyczenia
-        System.out.println("Zakończono wypożyczenie: " + rent.getRentInfo());
+        rent.endRent(LocalDateTime.now().plusDays(2));
+        rentRepo.Update(rent);
 
-        // Usuwanie pojazdu i klienta
+        // Usuwanie pojazdu, klienta i wypozyczenia chociaż nie powinno sie usuwać tylko zmieniać isArchvived
         rentRepo.Delete(rent);
         vehicleRepo.Delete(vehicle);
         clientRepo.Delete(client);
-        System.out.println("Usunięto pojazd i klienta.");
     }
 }

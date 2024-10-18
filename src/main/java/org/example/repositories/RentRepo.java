@@ -3,6 +3,7 @@ package org.example.repositories;
 import jakarta.persistence.*;
 import org.example.model.Rent;
 import org.example.model.Vehicle;
+import org.hibernate.StaleObjectStateException;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class RentRepo implements IRepo<Rent> {
     }
 
     @Override
-    public void Update(Rent entity) {
+    public void Update(Rent entity) throws OptimisticLockException {
         try {
             Vehicle vehicle1 = entity.getVehicle();
             Vehicle vehicle2 = entityManager.find(Vehicle.class, entity.getVehicle().getId());
@@ -70,7 +71,7 @@ public class RentRepo implements IRepo<Rent> {
 
             transaction.commit();
 
-        } catch (OptimisticLockException e) {
+        } catch (StaleObjectStateException e) {
             transaction.rollback();
             System.out.println("Optimistic lock exception: The entity has been modified by another transaction.");
         } catch(Exception e) {
