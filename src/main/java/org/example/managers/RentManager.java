@@ -1,5 +1,6 @@
 package org.example.managers;
 
+import org.example.exceptions.ClientException;
 import org.example.exceptions.RentException;
 import org.example.model.Client;
 import org.example.model.Rent;
@@ -16,7 +17,10 @@ public class RentManager {
         this.rentRepo = rentRepo;
     }
 
-    public void rentVehicle(Client client, Vehicle vehicle) throws RentException {
+    public void rentVehicle(Client client, Vehicle vehicle) throws RentException, ClientException {
+        if (client.getClientType().getMaxVehicle() <= rentRepo.getRentedVehiclesCount(client)) {
+            throw new ClientException("To many cars are already rented.");
+        }
         if (vehicle.isRented()) {
             throw new RentException("Is already rented.");
         } else {

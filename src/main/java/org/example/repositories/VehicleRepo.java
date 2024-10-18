@@ -44,6 +44,8 @@ public class VehicleRepo implements IRepo<Vehicle> {
         }
     }
 
+
+
     @Override
     public void Update(Vehicle entity) {
         try {
@@ -78,5 +80,10 @@ public class VehicleRepo implements IRepo<Vehicle> {
     public List<Vehicle> getAll() {
         String jpql = "SELECT v FROM Vehicle v";
         return entityManager.createQuery(jpql, Vehicle.class).getResultList();
+    }
+
+    public void Unredister(Vehicle entity) {
+        entity.setArchived(true);
+        Update(entity);
     }
 }

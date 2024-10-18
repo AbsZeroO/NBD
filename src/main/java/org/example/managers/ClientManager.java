@@ -18,7 +18,8 @@ public class ClientManager {
     }
 
     public void unregisterClient(Client client){
-        clientRepo.Delete(client);
+        clientRepo.Unredister(client);
+        //clientRepo.Delete(client);
     }
     public Client getClient(Long id) throws ClientException {
         Client client = clientRepo.Find(id);

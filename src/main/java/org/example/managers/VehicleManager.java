@@ -18,7 +18,8 @@ public class VehicleManager {
     }
 
     public void unregisterVehicle(Vehicle vehicle) {
-        vehicleRepo.Delete(vehicle);
+        vehicleRepo.Unredister(vehicle);
+        /*vehicleRepo.Delete(vehicle);*/
     }
 
     public Vehicle getItem(Long id) throws VehicleException {

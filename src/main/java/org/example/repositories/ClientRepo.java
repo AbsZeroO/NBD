@@ -40,6 +40,12 @@ public class ClientRepo implements IRepo<Client> {
         }
     }
 
+
+    public void Unredister(Client entity) {
+        entity.setArchived(true);
+        Update(entity);
+    }
+
     // update client or add client to database if not exits
     @Override
     public void Update(Client entity) {

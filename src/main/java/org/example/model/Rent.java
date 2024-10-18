@@ -29,6 +29,9 @@ public class Rent {
     @Column(name = "rent_cost")
     private double rentCost;
 
+    @Column(name = "is_archived")
+    private boolean isArchived;
+
     @Version
     private long version;
 
@@ -37,6 +40,7 @@ public class Rent {
         this.vehicle = vehicle;
         this.vehicle.setRented(true);
         this.rentCost =  client.applyDiscount(vehicle.getBasePrice());
+        this.isArchived = false;
 
         if (beginTime == null) {
             this.beginTime = LocalDateTime.now();
@@ -64,6 +68,7 @@ public class Rent {
 
         this.vehicle.setRented(false);
         this.rentCost = getRentCost();
+        this.isArchived = true;
     }
 
     public long getRentDays() {

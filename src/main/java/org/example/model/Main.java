@@ -1,5 +1,11 @@
 package org.example.model;
 
+import org.example.exceptions.ClientException;
+import org.example.exceptions.RentException;
+import org.example.exceptions.VehicleException;
+import org.example.managers.ClientManager;
+import org.example.managers.RentManager;
+import org.example.managers.VehicleManager;
 import org.example.model.*;
 import org.example.repositories.ClientRepo;
 import org.example.repositories.RentRepo;
@@ -9,41 +15,45 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        ClientRepo clientRepo = new ClientRepo();
-        VehicleRepo vehicleRepo = new VehicleRepo();
-        RentRepo rentRepo = new RentRepo();
+        // Inicjalizacja menedżerów
+        ClientManager clientManager = new ClientManager(new ClientRepo());
+        VehicleManager vehicleManager = new VehicleManager(new VehicleRepo());
+        RentManager rentManager = new RentManager(new RentRepo());
 
-        // Tworzenie klienta
-        Client client = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Gold());
-        clientRepo.Add(client);
+        try {
+            // Tworzenie klienta
+            Client client = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Bronze());
+            clientManager.registerClient(client);
 
-        Client client2 = new Client("Macieke", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
-        clientRepo.Add(client2);
+            Client client2 = new Client("Maciek", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
+            clientManager.registerClient(client2);
 
-        Client client3 = new Client("Macieasdke", "Walczak", new Address("Poznan", "akcja", "5"), new Silver());
-        clientRepo.Add(client3);
+            // Tworzenie pojazdu
+            Vehicle vehicle = new Vehicle("ABC1234", 195, 100.0, false);
+            vehicleManager.registerVehicle(vehicle);
 
-        // Tworzenie pojazdu
-        Vehicle vehicle = new Vehicle("ABC1234", 195, 100.0, false);
-        vehicleRepo.Add(vehicle);
+            Vehicle car = new Car("EL 0000", 50, 100.0, false, SegmentType.E);
+            vehicleManager.registerVehicle(car);
 
-        Vehicle car = new Car("EL 0000", 50, 100.0, false, SegmentType.E);
-        vehicleRepo.Add(car);
+            Vehicle bicycle = new Bicycle("EL 1111", 1000, 200.0, false);
+            vehicleManager.registerVehicle(bicycle);
 
-        Vehicle bicycle = new Bicycle("EL 1111", 1000, 200.0, false);
-        vehicleRepo.Add(bicycle);
+            // Wypożyczenie pojazdu
+            rentManager.rentVehicle(client, vehicle);
+            rentManager.rentVehicle(client, car);
+            rentManager.rentVehicle(client, bicycle);
 
-        // Tworzenie wypożyczenia
-        Rent rent = new Rent(client, vehicle, LocalDateTime.now());
-        rentRepo.Add(rent);
+            // Zmiana stanu wypożyczenia po 2 dniach
 
-        // Zmiana stanu wypożyczenia po 2 dniach
-        rent.endRent(LocalDateTime.now().plusDays(2));
-        rentRepo.Update(rent);
+            Rent rent = rentManager.getAllRents().get(0); // Zakładamy, że to pierwsze wypożyczenie
+            rentManager.returnVehicle(rent.getId(), LocalDateTime.now().plusDays(2));
 
-        // Usuwanie pojazdu, klienta i wypozyczenia chociaż nie powinno sie usuwać tylko zmieniać isArchvived
-        rentRepo.Delete(rent);
-        vehicleRepo.Delete(vehicle);
-        clientRepo.Delete(client);
+            // Usuwanie klienta i pojazdu
+            clientManager.unregisterClient(client);
+            vehicleManager.unregisterVehicle(vehicle);
+
+        } catch (ClientException | RentException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

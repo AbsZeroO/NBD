@@ -1,6 +1,7 @@
 package org.example.repositories;
 
 import jakarta.persistence.*;
+import org.example.model.Client;
 import org.example.model.Rent;
 import org.example.model.Vehicle;
 import org.hibernate.StaleObjectStateException;
@@ -99,5 +100,12 @@ public class RentRepo implements IRepo<Rent> {
                 .getResultStream()
                 .findFirst()
                 .orElse(null);
+    }
+
+    public long getRentedVehiclesCount(Client client) {
+        String jpql = "SELECT COUNT(r) FROM Rent r WHERE r.client = :client AND r.vehicle.rented = true";
+        return entityManager.createQuery(jpql, Long.class)
+                .setParameter("client", client)
+                .getSingleResult();
     }
 }
