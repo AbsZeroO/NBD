@@ -27,8 +27,6 @@
 
 # IntelliJ
 /out/
-target
-.idea
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -47,4 +45,3 @@ fabric.properties
 
 # *.iml
 # modules.xml
-
