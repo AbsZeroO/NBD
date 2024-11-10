@@ -2,11 +2,12 @@ package org.example.managers;
 
 import org.example.exceptions.ClientException;
 import org.example.model.Client;
-import org.example.repositories.ClientRepo;
+
 
 import java.util.List;
 
 public class ClientManager {
+    /*
     private ClientRepo clientRepo;
 
     public ClientManager(ClientRepo clientRepo) {
@@ -19,7 +20,10 @@ public class ClientManager {
 
     public void unregisterClient(Client client){
         clientRepo.Unredister(client);
-        //clientRepo.Delete(client);
+    }
+
+    public void deleateClient(Client client){
+        clientRepo.Delete(client);
     }
     public Client getClient(Long id) throws ClientException {
         Client client = clientRepo.Find(id);
@@ -35,4 +39,5 @@ public class ClientManager {
     public List<Client> getAllClients(){
         return clientRepo.getAll();
     }
+    */
 }

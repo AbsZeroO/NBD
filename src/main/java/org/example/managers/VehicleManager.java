@@ -2,11 +2,12 @@ package org.example.managers;
 
 import org.example.exceptions.VehicleException;
 import org.example.model.Vehicle;
-import org.example.repositories.VehicleRepo;
+
 
 import java.util.List;
 
 public class VehicleManager {
+/*
     private final VehicleRepo vehicleRepo;
 
     public VehicleManager(VehicleRepo vehicleRepo) {
@@ -19,9 +20,12 @@ public class VehicleManager {
 
     public void unregisterVehicle(Vehicle vehicle) {
         vehicleRepo.Unredister(vehicle);
-        /*vehicleRepo.Delete(vehicle);*/
+        *//*vehicleRepo.Delete(vehicle);*//*
     }
 
+    public void unregisterVehicle(Vehicle vehicle) {
+        vehicleRepo.Delete(vehicle);
+    }
     public Vehicle getItem(Long id) throws VehicleException {
         Vehicle item = vehicleRepo.Find(id);
         if(item == null) {
@@ -38,5 +42,6 @@ public class VehicleManager {
     public List<Vehicle> getAllItems(){
         return vehicleRepo.getAll();
     }
+    */
 
 }

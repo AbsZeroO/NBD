@@ -5,12 +5,12 @@ import org.example.exceptions.RentException;
 import org.example.model.Client;
 import org.example.model.Rent;
 import org.example.model.Vehicle;
-import org.example.repositories.RentRepo;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class RentManager {
+    /*
     private final RentRepo rentRepo;
 
     public RentManager(RentRepo rentRepo) {
@@ -50,5 +50,6 @@ public class RentManager {
     public List<Rent> getAllRents(){
         return rentRepo.getAll();
     }
+    */
 
 }
