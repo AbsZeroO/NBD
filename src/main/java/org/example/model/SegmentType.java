@@ -13,7 +13,6 @@ public enum SegmentType {
         this.multiplier = multiplier;
     }
 
-
     public double getMultiplier() {
         return multiplier;
     }

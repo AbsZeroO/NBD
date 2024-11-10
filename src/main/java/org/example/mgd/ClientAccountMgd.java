@@ -5,10 +5,8 @@ import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.example.model.ClientType;
 
-@BsonDiscriminator(key = "_clientInfo")
+
 public class ClientAccountMgd extends AbstractEntityMgd {
-    @BsonProperty("id")
-    private Long id;
     @BsonProperty("firstName")
     private String firstName;
     @BsonProperty("lastName")
@@ -16,33 +14,23 @@ public class ClientAccountMgd extends AbstractEntityMgd {
     @BsonProperty("address")
     private AddressMgd addressMgd;
     @BsonProperty("clientType")
-    private ClientTypeMgd clientTypeMgd;
+    private ClientType clientType;
     @BsonProperty("archived")
     private boolean isArchived;
 
     @BsonCreator
     public ClientAccountMgd(@BsonProperty("_id") int entityId,
-                            @BsonProperty("id") Long id,
                             @BsonProperty("firstName") String firstName,
                             @BsonProperty("lastName") String lastName,
                             @BsonProperty("address") AddressMgd addressMgd,
-                            @BsonProperty("clientType") ClientTypeMgd clientTypeMgd,
+                            @BsonProperty("clientType") ClientType clientType,
                             @BsonProperty("archived") boolean isArchived) {
         super(entityId);
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.addressMgd = addressMgd;
-        this.clientTypeMgd = clientTypeMgd;
+        this.clientType = clientType;
         this.isArchived = isArchived;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -69,12 +57,12 @@ public class ClientAccountMgd extends AbstractEntityMgd {
         this.addressMgd = address;
     }
 
-    public ClientTypeMgd getClientType() {
-        return clientTypeMgd;
+    public ClientType getClientType() {
+        return clientType;
     }
 
-    public void setClientType(ClientTypeMgd clientType) {
-        this.clientTypeMgd = clientType;
+    public void setClientType(ClientType clientType) {
+        this.clientType = clientType;
     }
 
     public boolean isArchived() {
@@ -87,11 +75,10 @@ public class ClientAccountMgd extends AbstractEntityMgd {
 
     @Override
     public String toString() {
-        return "ClientAccountMgd{" + "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "ClientAccountMgd{" + " firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address=" + addressMgd +
-                ", clientType=" + clientTypeMgd +
+                ", clientType=" + clientType +
                 ", isArchived=" + isArchived +
                 '}';
     }

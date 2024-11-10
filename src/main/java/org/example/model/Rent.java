@@ -5,21 +5,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Rent {
-
-    private Long id;
-
     private Client client;
-
-
     private Vehicle vehicle;
-
     private LocalDateTime beginTime;
-
     private LocalDateTime endTime;
-
     private double rentCost;
     private boolean isArchived;
-
     private long version;
 
     public Rent(Client client, Vehicle vehicle, LocalDateTime beginTime) {
@@ -85,18 +76,12 @@ public class Rent {
     }
 
     public String getRentInfo() {
-        return "id=" + id +
-                ", client={" + client.getClientInfo() + "}" +
+        return  ", client={" + client.getClientInfo() + "}" +
                 ", vehicle={" + vehicle.getVehicleInfo() + "}" +
                 ", beginTime=" + beginTime +
                 ", endTime=" + (endTime != null ? endTime : "not yet ended");
     }
 
-
-
-    public Long getId() {
-        return id;
-    }
 
     public Client getClient() {
         return client;

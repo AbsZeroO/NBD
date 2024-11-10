@@ -37,6 +37,22 @@ public class ClientTypeMgd {
         return typeInfo;
     }
 
+    public void setMaxVehicle(int maxVehicle) {
+        this.maxVehicle = maxVehicle;
+    }
+
+    public void setDiscountRate(double discountRate) {
+        this.discountRate = discountRate;
+    }
+
+    public void setTypeInfo(String typeInfo) {
+        this.typeInfo = typeInfo;
+    }
+
+    public double applyDiscount(double price) {
+        return price - (price * discountRate);
+    }
+
     @Override
     public String toString() {
         return "ClientTypeMgd{" +

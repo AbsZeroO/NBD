@@ -3,20 +3,13 @@ package org.example.model;
 
 public class Vehicle {
 
-    private Long id;
-
-
     private String plateNumber;
-
 
     private double basePrice;
 
-
     private int engineDisplacement;
 
-
     private boolean rented;
-
 
     private boolean archived;
 
@@ -75,7 +68,4 @@ public class Vehicle {
         this.archived = archived;
     }
 
-    public Long getId() {
-        return id;
-    }
 }
