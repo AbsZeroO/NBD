@@ -1,38 +1,25 @@
 package org.example.model;
 
-import jakarta.persistence.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "rent")
 public class Rent {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
-    @ManyToOne()
-    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id", nullable = false)
+
     private Vehicle vehicle;
 
-    @Column(name = "begin_time", nullable = false)
     private LocalDateTime beginTime;
 
-    @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    @Column(name = "rent_cost")
     private double rentCost;
-
-    @Column(name = "is_archived")
     private boolean isArchived;
 
-    @Version
     private long version;
 
     public Rent(Client client, Vehicle vehicle, LocalDateTime beginTime) {

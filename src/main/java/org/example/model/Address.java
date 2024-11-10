@@ -1,20 +1,10 @@
 package org.example.model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "client_address")
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "client_address_id")
     private Long id;
 
-    @Column(name = "city")
     private String city;
-    @Column(name = "street")
     private String street;
-    @Column(name = "house_nuber")
     private String houseNumber;
 
     public Address() {

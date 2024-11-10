@@ -1,31 +1,23 @@
 package org.example.model;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicUpdate;
 
-@Entity
-@DynamicUpdate
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "vehicle")
 public class Vehicle {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "plate_number")
+
     private String plateNumber;
 
-    @Column(name = "base_price")
+
     private double basePrice;
 
-    @Column(name = "engine_displacement")
+
     private int engineDisplacement;
 
-    @Column(name = "is_rented")
+
     private boolean rented;
 
-    @Column(name = "is_archived")
+
     private boolean archived;
 
     public Vehicle(String plateNumber, int engineDisplacement, double basePrice, boolean rented) {

@@ -1,14 +1,8 @@
 package org.example.model;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicUpdate;
 
-@Entity
-@DynamicUpdate
-@PrimaryKeyJoinColumn(name = "car_id")
-@Table(name = "car")
 public class Car extends Vehicle {
-    @Enumerated(EnumType.STRING)
+
     private SegmentType segmentType;
 
     public Car(String plateNumber, int engineDisplacement, double basePrice, boolean rented, SegmentType segmentType) {
