@@ -1,14 +1,10 @@
 package org.example.model;
 
 public class Address {
-    private Long id;
 
     private String city;
     private String street;
     private String houseNumber;
-
-    public Address() {
-    }
 
     public Address(String city, String street, String houseNumber) {
         this.city = city;

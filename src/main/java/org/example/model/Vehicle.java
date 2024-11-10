@@ -28,10 +28,6 @@ public class Vehicle {
         this.archived = false;
     }
 
-    public Vehicle() {
-
-    }
-
     public String getVehicleInfo() {
         return "Plate Number: " + plateNumber
                 + ", Base Price: " + basePrice;

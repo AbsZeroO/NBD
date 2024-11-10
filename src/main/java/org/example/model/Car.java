@@ -10,11 +10,6 @@ public class Car extends Vehicle {
         this.segmentType = segmentType;
     }
 
-
-    public Car() {
-
-    }
-
     public SegmentType getSegmentType() {
         return segmentType;
     }

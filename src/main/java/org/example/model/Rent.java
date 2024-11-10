@@ -38,9 +38,6 @@ public class Rent {
         this.endTime = null;
     }
 
-    public Rent() {
-    }
-
     public void endRent(LocalDateTime endTime) {
         if (endTime == null) {
             LocalDateTime currentTime = LocalDateTime.now();

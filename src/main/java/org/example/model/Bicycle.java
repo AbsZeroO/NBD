@@ -7,10 +7,6 @@ public class Bicycle extends Vehicle {
         super(plateNumber, engineDisplacement, basePrice, rented);
     }
 
-    public Bicycle() {
-
-    }
-
     public double getActualRentalPriceget() {
         return super.getBasePrice();
     }

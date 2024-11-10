@@ -15,9 +15,6 @@ public class Client implements Serializable {
 
     private boolean archived;
 
-    public Client() {
-    }
-
     public Client(String firstName, String lastName, Address address, ClientType clientType) {
         this.firstName = firstName;
         this.lastName = lastName;
