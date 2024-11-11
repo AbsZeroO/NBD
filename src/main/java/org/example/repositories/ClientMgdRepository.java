@@ -1,5 +1,6 @@
 package org.example.repositories;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import org.example.mgd.ClientAccountMgd;
 
@@ -22,9 +23,18 @@ public class ClientMgdRepository extends AbstractMongoRepository implements IRep
         return clients.find(eq("_id", id)).first();
     }
 
-    @Override
+
     public List<ClientAccountMgd> getAll() {
-        return clients.find().into(new ArrayList<>());
+        FindIterable<ClientAccountMgd> mongoClientsMgd = clients.find();
+        List<ClientAccountMgd> mongoClients = new ArrayList<>();
+
+        System.out.println(mongoClientsMgd.first());
+
+        for (ClientAccountMgd client : mongoClientsMgd) {
+            System.out.println(client);
+            mongoClients.add(client);
+        }
+        return mongoClients;
     }
 
     @Override

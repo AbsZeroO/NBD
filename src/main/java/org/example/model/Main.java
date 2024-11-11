@@ -8,11 +8,24 @@ import org.example.repositories.ClientMgdRepository;
 public class Main {
     public static void main(String[] args) {
         ClientMgdRepository clientMgdRepository = new ClientMgdRepository();
-        ClientAccountMgd client = new ClientAccountMgd(1, "Maciek", "Walaszek",
-                new AddressMgd("Łódź", "Radwańska", "40"), ClientType.GOLD, false);
+        try {
 
-        clientMgdRepository.Add(client);
+            AddressMgd addressMgd = new AddressMgd("Łódź", "Radwańska", "40");
+            ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
+                    addressMgd, ClientType.GOLD, false);
 
-        System.out.println();
+            ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
+                    addressMgd, ClientType.GOLD, false);
+
+            clientMgdRepository.Add(client);
+            clientMgdRepository.Add(client2);
+
+            System.out.println(clientMgdRepository.getAll());
+
+            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        clientMgdRepository.getMongodb().getCollection("clients").drop();
     }
 }

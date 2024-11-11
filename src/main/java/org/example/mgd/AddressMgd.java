@@ -5,18 +5,19 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 
 // Nie rozszerzamy o AbstracEntityMgd, ponieważ każdy klient bedzie posiadał swój adres zamieszkania więc nie jest nam
 // potrzebna identyfikacja po entityId
+
 public class AddressMgd  {
-    @BsonProperty
+    @BsonProperty("city")
     private String city;
-    @BsonProperty
+    @BsonProperty("street")
     private String street;
-    @BsonProperty
+    @BsonProperty("houseNumber")
     private String houseNumber;
 
     @BsonCreator
-    public AddressMgd(@BsonProperty String city,
-                      @BsonProperty String street,
-                      @BsonProperty String houseNumber) {
+    public AddressMgd(@BsonProperty("city") String city,
+                      @BsonProperty("street") String street,
+                      @BsonProperty("houseNumber") String houseNumber) {
         this.city = city;
         this.street = street;
         this.houseNumber = houseNumber;

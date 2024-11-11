@@ -1,10 +1,8 @@
 package org.example.mgd;
 
 import org.bson.codecs.pojo.annotations.BsonCreator;
-import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.example.model.ClientType;
-
 
 public class ClientAccountMgd extends AbstractEntityMgd {
     @BsonProperty("firstName")
@@ -49,14 +47,6 @@ public class ClientAccountMgd extends AbstractEntityMgd {
         this.lastName = lastName;
     }
 
-    public AddressMgd getAddress() {
-        return addressMgd;
-    }
-
-    public void setAddress(AddressMgd address) {
-        this.addressMgd = address;
-    }
-
     public ClientType getClientType() {
         return clientType;
     }
@@ -71,6 +61,14 @@ public class ClientAccountMgd extends AbstractEntityMgd {
 
     public void setArchived(boolean archived) {
         isArchived = archived;
+    }
+
+    public AddressMgd getAddressMgd() {
+        return addressMgd;
+    }
+
+    public void setAddressMgd(AddressMgd addressMgd) {
+        this.addressMgd = addressMgd;
     }
 
     @Override
