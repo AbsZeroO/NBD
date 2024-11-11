@@ -10,6 +10,4 @@ public interface IRepo<T> {
     List<T> getAll();
     boolean Update(T entity);
     boolean Delete(int id);
-
-
 }
