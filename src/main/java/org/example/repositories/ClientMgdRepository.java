@@ -1,49 +1,73 @@
 package org.example.repositories;
 
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import org.bson.Document;
+import org.example.mappers.ClientMapper;
 import org.example.mgd.ClientAccountMgd;
+import org.example.model.Client;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mongodb.client.model.Filters.eq;
 
-public class ClientMgdRepository extends AbstractMongoRepository implements IRepo<ClientAccountMgd> {
+public class ClientMgdRepository extends AbstractMongoRepository implements IRepo<Client> {
     private final MongoCollection<ClientAccountMgd> clients =
             getMongodb().getCollection("clients", ClientAccountMgd.class);
 
-    @Override
-    public boolean Add(ClientAccountMgd entity) {
-        return clients.insertOne(entity).wasAcknowledged();
-    }
-
-    @Override
-    public ClientAccountMgd Find(long id) {
-        return clients.find(eq("_id", id)).first();
-    }
-
-
-    public List<ClientAccountMgd> getAll() {
-        FindIterable<ClientAccountMgd> mongoClientsMgd = clients.find();
-        List<ClientAccountMgd> mongoClients = new ArrayList<>();
-
-        System.out.println(mongoClientsMgd.first());
-
-        for (ClientAccountMgd client : mongoClientsMgd) {
-            System.out.println(client);
-            mongoClients.add(client);
+    public boolean add(Client client) {
+        try {
+            ClientAccountMgd clientMgd = ClientMapper.clientToMongo(client);
+            return clients.insertOne(clientMgd).wasAcknowledged();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return mongoClients;
     }
 
-    @Override
-    public boolean Update(ClientAccountMgd entity) {
-        return clients.replaceOne(eq("_id", entity.getEntityId()), entity).wasAcknowledged();
+    public Client findById(int id) {
+        try {
+            Document clientDocument = getMongodb().getCollection("clients").find(Filters.eq("_id", id)).first();
+            if (clientDocument != null) {
+                ClientAccountMgd clientMgd = ClientMapper.toClientMgd(clientDocument);
+                return ClientMapper.clientFromMongo(clientMgd);
+            }
+            else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    @Override
-    public boolean Delete(int id) {
-        return clients.deleteOne(eq("_id", id)).wasAcknowledged();
+    public boolean update(Client client) {
+        try {
+            ClientAccountMgd clientMgd = ClientMapper.clientToMongo(client);
+            return clients.replaceOne(Filters.eq("_id", client.getId()), clientMgd).wasAcknowledged();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delete(int id) {
+        try {
+            return clients.deleteOne(Filters.eq("_id", id)).wasAcknowledged();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Client> findAll() {
+        try {
+            return clients.find()
+                    .map(ClientMapper::clientFromMongo)
+                    .into(new ArrayList<>());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -6,6 +6,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.CreateCollectionOptions;
 import org.bson.UuidRepresentation;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -54,6 +55,20 @@ public abstract class AbstractMongoRepository implements AutoCloseable {
 
         mongoClient = MongoClients.create(settings);
         mongodb = mongoClient.getDatabase("rentalcar");
+
+        if (!collectionExist("clients"))
+            mongodb.createCollection("clients", new CreateCollectionOptions());
+        if (!collectionExist("vehicles"))
+            mongodb.createCollection("vehicles", new CreateCollectionOptions());
+
+    }
+
+    public boolean collectionExist(String collectionName) {
+        for (String existingCollectionName : mongodb.listCollectionNames()) {
+            if (existingCollectionName.equals(collectionName))
+                return true;
+        }
+        return false;
     }
 
     public MongoClient getMongoClient() {

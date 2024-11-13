@@ -1,7 +1,7 @@
 package repositories;
 
-import org.example.mgd.AddressMgd;
-import org.example.mgd.ClientAccountMgd;
+import org.example.model.Address;
+import org.example.model.Client;
 import org.example.model.ClientType;
 import org.example.repositories.ClientMgdRepository;
 import org.junit.jupiter.api.AfterAll;
@@ -17,7 +17,6 @@ public class ClientMdgRepositoryTest {
     @BeforeAll
     public static void beforeAll() throws Exception {
         clientMgdRepository.getMongodb().getCollection("clients").drop();
-        clientMgdRepository.getMongodb().getCollection("vehicles").drop();
     }
 
     @AfterAll
@@ -28,30 +27,29 @@ public class ClientMdgRepositoryTest {
     @AfterEach
     public void afterEach() {
         clientMgdRepository.getMongodb().getCollection("clients").drop();
-        clientMgdRepository.getMongodb().getCollection("vehicles").drop();
     }
 
     @Test
     public void addTest() {
-        AddressMgd addressMgd = new AddressMgd("Łódź", "Radwańska", "40");
-        ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                addressMgd, ClientType.GOLD, false);
+        Address address = new Address("Łódź", "Radwańska", "40");
+        Client client = new Client(0, "Maciek", "Walaszek",
+                address, ClientType.GOLD, false);
 
-        ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
-                addressMgd, ClientType.GOLD, false);
+        Client client2 = new Client(1, "Walek", "Walaszek",
+                address, ClientType.GOLD, false);
 
-        clientMgdRepository.Add(client);
-        clientMgdRepository.Add(client2);
-        assertEquals(clientMgdRepository.getAll().size(), 2);
+        clientMgdRepository.add(client);
+        clientMgdRepository.add(client2);
+        assertEquals(clientMgdRepository.findAll().size(), 2);
     }
 
     @Test
     public void updateTest() {
-        AddressMgd addressMgd = new AddressMgd("Łódź", "Radwańska", "40");
-        ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                addressMgd, ClientType.GOLD, false);
+        Address address = new Address("Łódź", "Radwańska", "40");
+        Client client = new Client(0, "Maciek", "Walaszek",
+                address, ClientType.GOLD, false);
 
-        clientMgdRepository.Add(client);
+        clientMgdRepository.add(client);
 
         String newName = "Waldek";
         ClientType newClientType = ClientType.BRONZE;
@@ -59,12 +57,13 @@ public class ClientMdgRepositoryTest {
         client.setClientType(newClientType);
         client.setFirstName(newName);
 
-        clientMgdRepository.Update(client);
+        clientMgdRepository.update(client);
 
         assertEquals(client.getFirstName(), newName);
         assertEquals(client.getClientType(), newClientType);
 
-        ClientAccountMgd clientUpdate = clientMgdRepository.Find(client.getEntityId());
+        Client clientUpdate = clientMgdRepository.findById(client.getId());
+
 
         assertEquals(clientUpdate.getFirstName(), newName);
         assertEquals(clientUpdate.getClientType(), newClientType);
@@ -73,23 +72,23 @@ public class ClientMdgRepositoryTest {
 
     @Test
     public void deleteTest() {
-        AddressMgd addressMgd = new AddressMgd("Łódź", "Radwańska", "40");
-        ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                addressMgd, ClientType.GOLD, false);
+        Address address = new Address("Łódź", "Radwańska", "40");
+        Client client = new Client(0, "Maciek", "Walaszek",
+                address, ClientType.GOLD, false);
 
-        ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
-                addressMgd, ClientType.GOLD, false);
+        Client client2 = new Client(1, "Walek", "Walaszek",
+                address, ClientType.GOLD, false);
 
-        clientMgdRepository.Add(client);
-        clientMgdRepository.Add(client2);
-        assertEquals(clientMgdRepository.getAll().size(), 2);
+        clientMgdRepository.add(client);
+        clientMgdRepository.add(client2);
+        assertEquals(clientMgdRepository.findAll().size(), 2);
 
-        clientMgdRepository.Delete(client2.getEntityId());
-        assertEquals(clientMgdRepository.getAll().size(), 1);
+        clientMgdRepository.delete(client2.getId());
+        assertEquals(clientMgdRepository.findAll().size(), 1);
 
 
-        clientMgdRepository.Delete(client.getEntityId());
-        assertEquals(clientMgdRepository.getAll().size(), 0);
+        clientMgdRepository.delete(client.getId());
+        assertEquals(clientMgdRepository.findAll().size(), 0);
 
     }
 

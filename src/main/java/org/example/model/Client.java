@@ -3,7 +3,7 @@ package org.example.model;
 import java.io.Serializable;
 
 public class Client implements Serializable {
-    private Long id;
+    private int id;
 
     private String firstName;
     private String lastName;
@@ -15,12 +15,13 @@ public class Client implements Serializable {
 
     private boolean archived;
 
-    public Client(String firstName, String lastName, Address address, ClientType clientType) {
+    public Client(int id, String firstName, String lastName, Address address, ClientType clientType, boolean archived) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.clientType = clientType;
-        this.archived = false;
+        this.archived = archived;
     }
 
     public int getMaxVehicles() {
@@ -58,8 +59,12 @@ public class Client implements Serializable {
         return lastName;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Address getAddress() {

@@ -3,8 +3,8 @@ package org.example.model;
 
 public class Bicycle extends Vehicle {
 
-    public Bicycle(String plateNumber, int engineDisplacement, double basePrice, boolean rented) {
-        super(plateNumber, engineDisplacement, basePrice, rented);
+    public Bicycle(int Id, String plateNumber, int engineDisplacement, double basePrice, boolean rented, boolean archived) {
+        super(Id, plateNumber, engineDisplacement, basePrice, rented, archived);
     }
 
     public double getActualRentalPriceget() {

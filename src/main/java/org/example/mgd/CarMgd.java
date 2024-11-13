@@ -4,7 +4,7 @@ import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.example.model.SegmentType;
 
-@BsonDiscriminator(key = "_vehicle", value = "car")
+@BsonDiscriminator(key = "_type", value = "car")
 public class CarMgd extends VehicleMgd {
     @BsonProperty("segmentType")
     private SegmentType segmentType;
@@ -19,6 +19,15 @@ public class CarMgd extends VehicleMgd {
         super(entityId, plateNumber, basePrice, engineDisplacement, rented, archived);
         this.segmentType = segmentType;
     }
+
+    public SegmentType getSegmentType() {
+        return segmentType;
+    }
+
+    public void setSegmentType(SegmentType segmentType) {
+        this.segmentType = segmentType;
+    }
+
 
     @Override
     public String toString() {

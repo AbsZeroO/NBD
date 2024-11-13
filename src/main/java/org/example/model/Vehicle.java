@@ -2,6 +2,7 @@ package org.example.model;
 
 
 public class Vehicle {
+    private int Id;
 
     private String plateNumber;
 
@@ -13,7 +14,8 @@ public class Vehicle {
 
     private boolean archived;
 
-    public Vehicle(String plateNumber, int engineDisplacement, double basePrice, boolean rented) {
+    public Vehicle(int Id, String plateNumber, int engineDisplacement, double basePrice, boolean rented, boolean archived) {
+        this.Id = Id;
         this.plateNumber = plateNumber;
         this.engineDisplacement =  engineDisplacement;
         this.basePrice = basePrice;
@@ -24,6 +26,14 @@ public class Vehicle {
     public String getVehicleInfo() {
         return "Plate Number: " + plateNumber
                 + ", Base Price: " + basePrice;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public int getEngineDisplacement() {

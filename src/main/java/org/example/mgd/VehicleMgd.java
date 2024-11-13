@@ -4,7 +4,7 @@ import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
-@BsonDiscriminator(key = "_vehicle")
+@BsonDiscriminator(key = "_type", value = "vehicle")
 public class VehicleMgd extends AbstractEntityMgd {
 
     @BsonProperty("plateNumber")
