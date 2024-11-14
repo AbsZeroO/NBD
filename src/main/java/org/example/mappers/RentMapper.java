@@ -31,6 +31,14 @@ public class RentMapper {
     }
 
     public static Rent rentFromMongo(RentMgd rentMgd) {
+        if (rentMgd.getEndTime() == null) {
+            return new Rent(
+                    rentMgd.getEntityId(),
+                    ClientMapper.clientFromMongo(rentMgd.getClientAccountMgd()),
+                    VehicleMapper.vehicleFromMongo(rentMgd.getVehicleMgd()),
+                    rentMgd.getBeginTime()
+            );
+        }
         if (rentMgd.getEndTime().isAfter(rentMgd.getBeginTime())) {
             return new Rent(
                     rentMgd.getEntityId(),
@@ -42,12 +50,7 @@ public class RentMapper {
                     rentMgd.isArchived()
             );
         }
-        return new Rent(
-                rentMgd.getEntityId(),
-                ClientMapper.clientFromMongo(rentMgd.getClientAccountMgd()),
-                VehicleMapper.vehicleFromMongo(rentMgd.getVehicleMgd()),
-                rentMgd.getBeginTime()
-        );
+        return null;
     }
 
     public static RentMgd toRentMgd(Document document) {

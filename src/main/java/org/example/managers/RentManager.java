@@ -73,9 +73,7 @@ public class RentManager {
 
         List<Rent> rents = new ArrayList<>();
         for (RentMgd rentMgd : rentMgdList) {
-            System.out.println("RentMgd: " + rentMgd); // Debugging: sprawdź obiekt RentMgd
             Rent rent = RentMapper.rentFromMongo(rentMgd);
-            System.out.println("Mapped Rent: " + rent); // Debugging: sprawdź obiekt Rent po mapowaniu
             rents.add(rent);
         }
 
