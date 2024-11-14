@@ -33,8 +33,8 @@ public class VehicleMgdRepositoryTest {
     @Test
     public void addTest() {
 
-        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, false, false, SegmentType.B);
-        BicycleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 500, false, false);
+        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 0, false, SegmentType.B);
+        BicycleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 500, 0, false);
 
 
         vehicleMgdRepository.add(vehicle1);
@@ -44,7 +44,7 @@ public class VehicleMgdRepositoryTest {
 
     @Test
     public void updateTest() {
-        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0, 125, false, false, SegmentType.B);
+        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0, 125, 0, false, SegmentType.B);
 
         vehicleMgdRepository.add(vehicle1);
 
@@ -67,8 +67,8 @@ public class VehicleMgdRepositoryTest {
 
     @Test
     public void deleteTest() {
-        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, false, false, SegmentType.B);
-        BicycleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 500, false, false);
+        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 0, false, SegmentType.B);
+        BicycleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 500, 0, false);
 
 
         vehicleMgdRepository.add(vehicle1);

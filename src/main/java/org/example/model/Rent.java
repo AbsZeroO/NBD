@@ -26,7 +26,7 @@ public class Rent {
         this.Id = Id;
         this.client = client;
         this.vehicle = vehicle;
-        this.vehicle.setRented(true);
+        this.vehicle.setRented(0);
         this.rentCost =  client.applyDiscount(vehicle.getBasePrice());
         this.isArchived = false;
 
@@ -51,7 +51,7 @@ public class Rent {
             this.endTime = endTime;
         }
 
-        this.vehicle.setRented(false);
+        this.vehicle.setRented(0);
         this.rentCost = getRentCost();
         this.isArchived = true;
     }

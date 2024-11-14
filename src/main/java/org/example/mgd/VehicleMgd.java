@@ -17,7 +17,7 @@ public class VehicleMgd extends AbstractEntityMgd {
     private int engineDisplacement;
 
     @BsonProperty("rented")
-    private boolean rented;
+    private int rented;
 
     @BsonProperty("archived")
     private boolean archived;
@@ -27,7 +27,7 @@ public class VehicleMgd extends AbstractEntityMgd {
                       @BsonProperty("plateNumber") String plateNumber,
                       @BsonProperty("basePrice") double basePrice,
                       @BsonProperty("engineDisplacement") int engineDisplacement,
-                      @BsonProperty("rented") boolean rented,
+                      @BsonProperty("rented") int rented,
                       @BsonProperty("archived") boolean archived) {
         super(entityId);
         this.plateNumber = plateNumber;
@@ -61,11 +61,11 @@ public class VehicleMgd extends AbstractEntityMgd {
         this.engineDisplacement = engineDisplacement;
     }
 
-    public boolean isRented() {
+    public int isRented() {
         return rented;
     }
 
-    public void setRented(boolean rented) {
+    public void setRented(int rented) {
         this.rented = rented;
     }
 

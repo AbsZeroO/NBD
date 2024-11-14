@@ -19,6 +19,7 @@ public class RentMgdRepository extends AbstractMongoRepository implements IRepo<
     @Override
     public boolean add(RentMgd rentMgd) {
         try {
+
             return rents.insertOne(rentMgd).wasAcknowledged();
         } catch (Exception e) {
             e.printStackTrace();

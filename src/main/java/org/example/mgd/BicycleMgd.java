@@ -12,7 +12,7 @@ public class BicycleMgd extends VehicleMgd {
                       @BsonProperty("plateNumber") String plateNumber,
                       @BsonProperty("basePrice") double basePrice,
                       @BsonProperty("engineDisplacement") int engineDisplacement,
-                      @BsonProperty("rented") boolean rented,
+                      @BsonProperty("rented") int rented,
                       @BsonProperty("archived") boolean archived) {
         super(entityId, plateNumber, basePrice, engineDisplacement, rented, archived);
     }

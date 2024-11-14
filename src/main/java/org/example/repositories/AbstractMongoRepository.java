@@ -12,6 +12,7 @@ import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.Conventions;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.example.validation.VehicleValidation;
 
 import java.util.List;
 
@@ -59,7 +60,8 @@ public abstract class AbstractMongoRepository implements AutoCloseable {
         if (!collectionExist("clients"))
             mongodb.createCollection("clients", new CreateCollectionOptions());
         if (!collectionExist("vehicles"))
-            mongodb.createCollection("vehicles", new CreateCollectionOptions());
+            mongodb.createCollection("vehicles", new CreateCollectionOptions()
+                    .validationOptions(VehicleValidation.validationOptions));
 
     }
 

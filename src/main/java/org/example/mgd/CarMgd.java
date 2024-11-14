@@ -15,7 +15,7 @@ public class CarMgd extends VehicleMgd {
                   @BsonProperty("plateNumber") String plateNumber,
                   @BsonProperty("basePrice") double basePrice,
                   @BsonProperty("engineDisplacement") int engineDisplacement,
-                  @BsonProperty("rented") boolean rented,
+                  @BsonProperty("rented") int rented,
                   @BsonProperty("archived") boolean archived,
                   @BsonProperty("segmentType") SegmentType segmentType) {
         super(entityId, plateNumber, basePrice, engineDisplacement, rented, archived);

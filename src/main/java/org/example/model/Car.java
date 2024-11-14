@@ -5,7 +5,7 @@ public class Car extends Vehicle {
 
     private SegmentType segmentType;
 
-    public Car(int Id, String plateNumber, int engineDisplacement, double basePrice, boolean rented, boolean archived, SegmentType segmentType) {
+    public Car(int Id, String plateNumber, int engineDisplacement, double basePrice, int rented, boolean archived, SegmentType segmentType) {
         super(Id, plateNumber, engineDisplacement, basePrice, rented, archived);
         this.segmentType = segmentType;
     }

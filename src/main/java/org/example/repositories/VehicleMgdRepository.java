@@ -2,7 +2,9 @@ package org.example.repositories;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.example.mappers.VehicleMapper;
 import org.example.mgd.VehicleMgd;
 
@@ -65,5 +67,11 @@ public class VehicleMgdRepository extends AbstractMongoRepository implements IRe
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void updateRent(VehicleMgd vehicleMgd) {
+        Bson filter = Filters.eq("_id", vehicleMgd.getEntityId());
+        Bson update = Updates.inc("rented", 1);
+        vehicles.updateOne(filter, update);
     }
 }

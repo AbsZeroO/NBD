@@ -20,8 +20,8 @@ public class Main {
             ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
                     address, ClientType.GOLD, false);
 
-            VehicleMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, false, false, SegmentType.B);
-            VehicleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 100, false, false);
+            VehicleMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 0, false, SegmentType.B);
+            VehicleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 100, 0, false);
 
             clientMgdRepository.add(client);
             clientMgdRepository.add(client2);

@@ -85,7 +85,7 @@ public class VehicleMapper {
                 carDocument.getString(PLATE_NUMBER),
                 carDocument.getDouble(BASE_PRICE),
                 carDocument.getInteger(ENGINE_DISPLACEMENT),
-                carDocument.getBoolean(IS_RENTED),
+                carDocument.getInteger(IS_RENTED),
                 carDocument.getBoolean(IS_ARCHIVE),
                 SegmentType.valueOf(carDocument.getString(SEGMENT_TYPE))
         );
@@ -97,7 +97,7 @@ public class VehicleMapper {
                 bicycleDocument.getString(PLATE_NUMBER),
                 bicycleDocument.getDouble(BASE_PRICE),
                 bicycleDocument.getInteger(ENGINE_DISPLACEMENT),
-                bicycleDocument.getBoolean(IS_RENTED),
+                bicycleDocument.getInteger(IS_RENTED),
                 bicycleDocument.getBoolean(IS_ARCHIVE)
         );
     }

@@ -1,7 +1,11 @@
 package org.example.mgd;
 
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.conversions.Bson;
+import org.example.repositories.VehicleMgdRepository;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -44,9 +48,26 @@ public class RentMgd extends AbstractEntityMgd {
         super(entityId);
         this.clientAccountMgd = clientAccountMgd;
         this.vehicleMgd = vehicleMgd;
+
+        try(VehicleMgdRepository vehicleRepository = new VehicleMgdRepository()) {
+            vehicleRepository.updateRent(vehicleMgd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.beginTime = beginTime != null ? beginTime : LocalDateTime.now();
         this.isArchived = false;
         this.rentCost = clientAccountMgd.getClientType().applyDiscount(vehicleMgd.getBasePrice());
+
+        if (beginTime == null) {
+            this.beginTime = LocalDateTime.now();
+        } else {
+            this.beginTime = beginTime;
+        }
+
+        this.endTime = null;
+
+
     }
 
     public LocalDateTime getBeginTime() { return beginTime; }
