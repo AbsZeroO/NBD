@@ -15,6 +15,7 @@ public class ClientMgdRepository extends AbstractMongoRepository implements IRep
     private final MongoCollection<ClientAccountMgd> clients =
             getMongodb().getCollection("clients", ClientAccountMgd.class);
 
+    private final MongoCollection<Document> clientDocs = getMongodb().getCollection("clients");
     public boolean add(ClientAccountMgd client) {
         try {
             return clients.insertOne(client).wasAcknowledged();
@@ -26,7 +27,7 @@ public class ClientMgdRepository extends AbstractMongoRepository implements IRep
 
     public ClientAccountMgd findById(int id) {
         try {
-            Document clientDocument = getMongodb().getCollection("clients").find(Filters.eq("_id", id)).first();
+            Document clientDocument = clientDocs.find(Filters.eq("_id", id)).first();
             if (clientDocument != null) {
                 return ClientMapper.toClientMgd(clientDocument);
             }

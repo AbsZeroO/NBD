@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 
 public class RentMgd extends AbstractEntityMgd {
     @BsonProperty("client")
-    private final ClientAccountMgd clientAccountMgd;
+    private ClientAccountMgd clientAccountMgd;
     @BsonProperty("vehicle")
-    private final VehicleMgd vehicleMgd;
+    private VehicleMgd vehicleMgd;
     @BsonProperty("beginTime")
-    private final LocalDateTime beginTime;
+    private LocalDateTime beginTime;
     @BsonProperty("endTime")
     private LocalDateTime endTime;
     @BsonProperty("rentCost")
@@ -74,5 +74,34 @@ public class RentMgd extends AbstractEntityMgd {
                 ", rentCost=" + rentCost +
                 ", isArchived=" + isArchived +
                 '}';
+    }
+
+    public ClientAccountMgd getClientAccountMgd() {
+        return clientAccountMgd;
+    }
+
+
+    public VehicleMgd getVehicleMgd() {
+        return vehicleMgd;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setRentCost(double rentCost) {
+        this.rentCost = rentCost;
+    }
+
+    public void setClientAccountMgd(ClientAccountMgd clientAccountMgd) {
+        this.clientAccountMgd = clientAccountMgd;
+    }
+
+    public void setVehicleMgd(VehicleMgd vehicleMgd) {
+        this.vehicleMgd = vehicleMgd;
+    }
+
+    public void setBeginTime(LocalDateTime beginTime) {
+        this.beginTime = beginTime;
     }
 }

@@ -5,15 +5,25 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Rent {
+    private int Id;
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
     private Client client;
     private Vehicle vehicle;
     private LocalDateTime beginTime;
     private LocalDateTime endTime;
     private double rentCost;
     private boolean isArchived;
-    private long version;
 
-    public Rent(Client client, Vehicle vehicle, LocalDateTime beginTime) {
+    public Rent(int Id, Client client, Vehicle vehicle, LocalDateTime beginTime) {
+        this.Id = Id;
         this.client = client;
         this.vehicle = vehicle;
         this.vehicle.setRented(true);
@@ -97,5 +107,17 @@ public class Rent {
 
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    public void setRentCost(double rentCost) {
+        this.rentCost = rentCost;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
     }
 }
