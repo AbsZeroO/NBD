@@ -33,10 +33,10 @@ public class ClientMdgRepositoryTest {
     public void addTest() {
         AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
         ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientMgdRepository.add(client);
         clientMgdRepository.add(client2);
@@ -47,7 +47,7 @@ public class ClientMdgRepositoryTest {
     public void updateTest() {
         AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
         ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientMgdRepository.add(client);
 
@@ -76,10 +76,10 @@ public class ClientMdgRepositoryTest {
     public void deleteTest() {
         AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
         ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientMgdRepository.add(client);
         clientMgdRepository.add(client2);

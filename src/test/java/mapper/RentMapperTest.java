@@ -15,7 +15,7 @@ public class RentMapperTest {
     @Test
     void testRentToMongo() {
         Address address = new Address("Lodz", "Poniatowski", "50");
-        Client client = new Client(1, "John", "Doe", address, ClientType.GOLD, false);
+        Client client = new Client(1, "John", "Doe", address, ClientType.GOLD, false, 0);
         Vehicle vehicle = new Bicycle(1, "ABC123", 50000.0, 2000, 0, false);
         LocalDateTime beginTime = LocalDateTime.of(2024, Month.NOVEMBER, 14, 10, 0);
         Rent rent = new Rent(1, client, vehicle, beginTime);
@@ -34,7 +34,7 @@ public class RentMapperTest {
     @Test
     void testRentFromMongo() {
         AddressMgd addressMgd = new AddressMgd("Lodz", "Poniatowski", "50");
-        ClientAccountMgd clientAccountMgd = new ClientAccountMgd(1, "John", "Doe", addressMgd, ClientType.GOLD, false);
+        ClientAccountMgd clientAccountMgd = new ClientAccountMgd(1, "John", "Doe", addressMgd, ClientType.GOLD, false, 0);
         VehicleMgd vehicleMgd = new BicycleMgd(1, "ABC123", 50000.0, 2000, 0, false);
         LocalDateTime beginTime = LocalDateTime.of(2024, Month.NOVEMBER, 14, 10, 0);
         LocalDateTime endTime = LocalDateTime.of(2024, Month.NOVEMBER, 15, 10, 0);
@@ -66,7 +66,8 @@ public class RentMapperTest {
                 .append("lastName", "Doe")
                 .append("address", address)
                 .append("clientType", "GOLD")
-                .append("archived", false);
+                .append("archived", false)
+                .append("rents", 0);
 
         Document vehicleDoc = new Document("_id", 1)
                 .append("plateNumber", "ABC123")

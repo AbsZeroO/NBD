@@ -15,6 +15,8 @@ public class ClientAccountMgd extends AbstractEntityMgd {
     private ClientType clientType;
     @BsonProperty("archived")
     private boolean isArchived;
+    @BsonProperty("rents")
+    private int rents;
 
     @BsonCreator
     public ClientAccountMgd(@BsonProperty("_id") int entityId,
@@ -22,13 +24,23 @@ public class ClientAccountMgd extends AbstractEntityMgd {
                             @BsonProperty("lastName") String lastName,
                             @BsonProperty("address") AddressMgd addressMgd,
                             @BsonProperty("clientType") ClientType clientType,
-                            @BsonProperty("archived") boolean isArchived) {
+                            @BsonProperty("archived") boolean isArchived,
+                            @BsonProperty("rents") int rents) {
         super(entityId);
         this.firstName = firstName;
         this.lastName = lastName;
         this.addressMgd = addressMgd;
         this.clientType = clientType;
         this.isArchived = isArchived;
+        this.rents = rents;
+    }
+
+    public int getRents() {
+        return rents;
+    }
+
+    public void setRents(int rents) {
+        this.rents = rents;
     }
 
     public String getFirstName() {

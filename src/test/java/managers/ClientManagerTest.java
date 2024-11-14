@@ -42,10 +42,10 @@ public class ClientManagerTest {
     public void registerTest() {
         Address address = new Address("Łódź", "Radwańska", "40");
         Client client = new Client(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         Client client2 = new Client(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientManager.registerClient(client);
 
@@ -59,10 +59,10 @@ public class ClientManagerTest {
     public void deleteTest() {
         Address address = new Address("Łódź", "Radwańska", "40");
         Client client = new Client(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         Client client2 = new Client(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientManager.registerClient(client);
         clientManager.registerClient(client2);
@@ -79,10 +79,10 @@ public class ClientManagerTest {
     public void getClient() throws ClientException {
         Address address = new Address("Łódź", "Radwańska", "40");
         Client client = new Client(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         Client client2 = new Client(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientManager.registerClient(client);
         clientManager.registerClient(client2);
@@ -97,10 +97,10 @@ public class ClientManagerTest {
     public void editTest() throws ClientException {
         Address address = new Address("Łódź", "Radwańska", "40");
         Client client = new Client(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         Client client2 = new Client(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientManager.registerClient(client);
         clientManager.registerClient(client2);
@@ -124,10 +124,10 @@ public class ClientManagerTest {
     public void testGetAllRents() throws RentException {
         Address address = new Address("Łódź", "Radwańska", "40");
         Client client = new Client(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         Client client2 = new Client(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
+                address, ClientType.GOLD, false, 0);
 
         clientManager.registerClient(client);
         clientManager.registerClient(client2);

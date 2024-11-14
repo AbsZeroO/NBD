@@ -10,6 +10,12 @@ public class ClientValidation {
                           $jsonSchema: {
                              bsonType: "object",
                              properties: {
+                                rents: {
+                                bsonType: "int",
+                                minimum: 0,
+                                maximum:5,
+                                description: "rents can have values of 0-5"
+                                },
                                 firstName: {
                                    bsonType: "string",
                                    description: "Imię klienta"

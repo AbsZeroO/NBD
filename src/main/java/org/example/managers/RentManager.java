@@ -35,33 +35,33 @@ public class RentManager {
         Rent rent = new Rent(id, client, vehicle, LocalDateTime.now());
 
         try {
-            int a = rentRepo.countClients(ClientMapper.clientToMongo(client));
-            if (a < client.getClientType().getMaxVehicle()) {
-                vehRepo.updateRent(VehicleMapper.vehicleToMongo(vehicle));
-                vehicle.setRented(1);
-                rentRepo.add(RentMapper.rentToMongo(rent));
-            }
-            else {
-                throw new RentException("Client rented max vehicles.");
-            }
+            vehRepo.updateRent(VehicleMapper.vehicleToMongo(vehicle));
+            clientRepo.incRent(ClientMapper.clientToMongo(client));
+            client.setRents(client.getRents() + 1);
+            vehicle.setRented(1);
+            rentRepo.add(RentMapper.rentToMongo(rent));
 
         } catch (MongoWriteException e) {
             e.printStackTrace();
             throw e;
-        } catch (RentException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Ta");
         }
     }
 
-    public Vehicle returnVehicle(int rentId, LocalDateTime date) throws RentException {
-        Rent rent = getRentFromItemId(rentId);
-        Vehicle vehicle = rent.getVehicle();
-        vehicle.setRented(0);
-        vehRepo.update(VehicleMapper.vehicleToMongo(vehicle));
-        rent.endRent(date);
-        rentRepo.update(RentMapper.rentToMongo(rent));
-        return vehicle;
+    public Vehicle returnVehicle(int rentId, LocalDateTime date) throws RentException, MongoWriteException {
+        try {
+            Rent rent = getRentFromItemId(rentId);
+            rent.getVehicle().setRented(0);
+            vehRepo.update(VehicleMapper.vehicleToMongo(rent.getVehicle()));
+            clientRepo.decRent(ClientMapper.clientToMongo(rent.getClient()));
+            rent.getClient().setRents(rent.getClient().getRents() - 1);
+            rent.endRent(date);
+            rentRepo.update(RentMapper.rentToMongo(rent));
+            return rent.getVehicle();
+
+        } catch (MongoWriteException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     public Rent getRentFromItemId(int id) throws RentException {

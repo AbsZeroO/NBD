@@ -15,10 +15,10 @@ public class Main {
 
             AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
             ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                    address, ClientType.GOLD, false);
+                    address, ClientType.GOLD, false, 0);
 
             ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
-                    address, ClientType.GOLD, false);
+                    address, ClientType.GOLD, false, 0);
 
             VehicleMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 0, false, SegmentType.B);
             VehicleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 100, 0, false);

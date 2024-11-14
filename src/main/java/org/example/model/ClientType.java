@@ -4,8 +4,8 @@ package org.example.model;
 public enum ClientType {
 
     SILVER(5, 0.4, "Silver"),
-    GOLD(7, 0.7, "Gold"),
-    BRONZE(2, 0.1, "Bronze");
+    GOLD(5, 0.7, "Gold"),
+    BRONZE(5, 0.1, "Bronze");
 
     private final int maxVehicle;
     private final double discountRate;

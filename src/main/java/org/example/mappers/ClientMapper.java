@@ -14,6 +14,7 @@ public class ClientMapper {
     private static final String CLIENT_TYPE = "clientType";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
+    private static final String RENTS = "rents";
 
     public static ClientAccountMgd clientToMongo(Client client) {
         return new ClientAccountMgd(
@@ -22,7 +23,8 @@ public class ClientMapper {
                 client.getLastName(),
                 toAddressMgd(client.getAddress()),
                 client.getClientType(),
-                client.isArchived()
+                client.isArchived(),
+                client.getRents()
         );
     }
 
@@ -33,7 +35,8 @@ public class ClientMapper {
                 client.getLastName(),
                 toAddress(client.getAddressMgd()),
                 client.getClientType(),
-                client.isArchived()
+                client.isArchived(),
+                client.getRents()
         );
     }
 
@@ -52,7 +55,8 @@ public class ClientMapper {
                 clientDocument.getString(LAST_NAME),
                 addressMgd,
                 ClientType.valueOf(clientDocument.getString(CLIENT_TYPE)),
-                clientDocument.getBoolean(ARCHIVED)
+                clientDocument.getBoolean(ARCHIVED),
+                clientDocument.getInteger(RENTS)
         );
     }
 

@@ -2,7 +2,9 @@ package org.example.repositories;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.example.mappers.ClientMapper;
 import org.example.mgd.ClientAccountMgd;
 import org.example.model.Client;
@@ -65,5 +67,17 @@ public class ClientMgdRepository extends AbstractMongoRepository implements IRep
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void incRent(ClientAccountMgd clientAccountMgd) {
+        Bson filter = Filters.eq("_id", clientAccountMgd.getEntityId());
+        Bson update = Updates.inc("rents", 1);
+        clients.updateOne(filter, update);
+    }
+
+    public void decRent(ClientAccountMgd clientAccountMgd) {
+        Bson filter = Filters.eq("_id", clientAccountMgd.getEntityId());
+        Bson update = Updates.inc("rents", -1);
+        clients.updateOne(filter, update);
     }
 }

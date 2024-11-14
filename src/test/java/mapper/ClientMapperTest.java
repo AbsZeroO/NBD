@@ -15,7 +15,7 @@ public class ClientMapperTest {
     @Test
     void testClientToMongo() {
         Address address = new Address("Warsaw", "Main St", "5A");
-        Client client = new Client(1, "John", "Doe", address, ClientType.GOLD, false);
+        Client client = new Client(1, "John", "Doe", address, ClientType.GOLD, false, 0);
 
         ClientAccountMgd clientMgd = ClientMapper.clientToMongo(client);
 
@@ -27,12 +27,13 @@ public class ClientMapperTest {
         assertEquals(client.getAddress().getCity(), clientMgd.getAddressMgd().getCity());
         assertEquals(client.getAddress().getStreet(), clientMgd.getAddressMgd().getStreet());
         assertEquals(client.getAddress().getHouseNumber(), clientMgd.getAddressMgd().getHouseNumber());
+        assertEquals(client.getRents(), clientMgd.getRents());
     }
 
     @Test
     void testClientFromMongo() {
         AddressMgd addressMgd = new AddressMgd("Warsaw", "Main St", "5A");
-        ClientAccountMgd clientMgd = new ClientAccountMgd(1, "John", "Doe", addressMgd, ClientType.GOLD, false);
+        ClientAccountMgd clientMgd = new ClientAccountMgd(1, "John", "Doe", addressMgd, ClientType.GOLD, false, 0);
 
         Client client = ClientMapper.clientFromMongo(clientMgd);
 
@@ -44,6 +45,7 @@ public class ClientMapperTest {
         assertEquals(clientMgd.getAddressMgd().getCity(), client.getAddress().getCity());
         assertEquals(clientMgd.getAddressMgd().getStreet(), client.getAddress().getStreet());
         assertEquals(clientMgd.getAddressMgd().getHouseNumber(), client.getAddress().getHouseNumber());
+        assertEquals(clientMgd.getRents(), client.getRents());
     }
 
     @Test
@@ -56,7 +58,8 @@ public class ClientMapperTest {
                 .append("lastName", "Doe")
                 .append("address", addressDoc)
                 .append("clientType", "GOLD")
-                .append("archived", false);
+                .append("archived", false)
+                .append("rents", 0);
 
         ClientAccountMgd clientMgd = ClientMapper.toClientMgd(clientDoc);
 
@@ -68,5 +71,6 @@ public class ClientMapperTest {
         assertEquals(addressDoc.getString("city"), clientMgd.getAddressMgd().getCity());
         assertEquals(addressDoc.getString("street"), clientMgd.getAddressMgd().getStreet());
         assertEquals(addressDoc.getString("houseNumber"), clientMgd.getAddressMgd().getHouseNumber());
+        assertEquals(clientDoc.getInteger("rents"), clientMgd.getRents());
     }
 }

@@ -15,13 +15,28 @@ public class Client implements Serializable {
 
     private boolean archived;
 
-    public Client(int id, String firstName, String lastName, Address address, ClientType clientType, boolean archived) {
+    private int rents = 0;
+
+    public Client(int id, String firstName, String lastName, Address address, ClientType clientType, boolean archived, int rents) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.clientType = clientType;
         this.archived = archived;
+        this.rents = rents;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public int getRents() {
+        return rents;
+    }
+
+    public void setRents(int rents) {
+        this.rents = rents;
     }
 
     public int getMaxVehicles() {
