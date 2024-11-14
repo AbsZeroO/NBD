@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.example.mappers.RentMapper;
+import org.example.mgd.ClientAccountMgd;
 import org.example.mgd.RentMgd;
 
 import java.util.ArrayList;
@@ -71,5 +72,9 @@ public class RentMgdRepository extends AbstractMongoRepository implements IRepo<
             e.printStackTrace();
             return false;
         }
+    }
+
+    public int countClients(ClientAccountMgd clientAccountMgd) {
+        return (int) rents.countDocuments(Filters.eq("client._id", clientAccountMgd.getEntityId()));
     }
 }

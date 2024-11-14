@@ -49,8 +49,8 @@ public class VehicleMapper {
             return new Car(
                     vehicleMgd.getEntityId(),
                     vehicleMgd.getPlateNumber(),
-                    vehicleMgd.getEngineDisplacement(),
                     vehicleMgd.getBasePrice(),
+                    vehicleMgd.getEngineDisplacement(),
                     vehicleMgd.isRented(),
                     vehicleMgd.isArchived(),
                     ((CarMgd) vehicleMgd).getSegmentType()

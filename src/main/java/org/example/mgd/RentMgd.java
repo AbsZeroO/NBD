@@ -1,10 +1,14 @@
 package org.example.mgd;
 
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.conversions.Bson;
+import org.example.exceptions.RentException;
+import org.example.repositories.ClientMgdRepository;
+import org.example.repositories.RentMgdRepository;
 import org.example.repositories.VehicleMgdRepository;
 
 import java.time.Duration;
@@ -48,14 +52,6 @@ public class RentMgd extends AbstractEntityMgd {
         super(entityId);
         this.clientAccountMgd = clientAccountMgd;
         this.vehicleMgd = vehicleMgd;
-
-        try(VehicleMgdRepository vehicleRepository = new VehicleMgdRepository()) {
-            vehicleRepository.updateRent(vehicleMgd);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-
         this.beginTime = beginTime != null ? beginTime : LocalDateTime.now();
         this.isArchived = false;
         this.rentCost = clientAccountMgd.getClientType().applyDiscount(vehicleMgd.getBasePrice());
