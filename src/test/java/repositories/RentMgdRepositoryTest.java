@@ -1,5 +1,7 @@
 package repositories;
 
+import com.mongodb.MongoWriteConcernException;
+import com.mongodb.MongoWriteException;
 import org.example.mgd.*;
 import org.example.model.ClientType;
 import org.example.model.SegmentType;
@@ -12,8 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RentMgdRepositoryTest {
     public static RentMgdRepository rentMgdRepository = new RentMgdRepository();
@@ -110,7 +111,6 @@ public class RentMgdRepositoryTest {
 
     }
 
-    //TO DO: napisać test gdzie jest błąd kiedy zapisuje kolejny vehicle który ma już jakiegos renta
     @Test
     public void validationTest() {
         AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
@@ -121,25 +121,11 @@ public class RentMgdRepositoryTest {
                 address, ClientType.GOLD, false);
 
         CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 1, false, SegmentType.B);
-        BicycleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 500, 0, false);
 
         VehicleMgdRepository vehicleMgdRepository = new VehicleMgdRepository();
         vehicleMgdRepository.add(vehicle1);
-        vehicleMgdRepository.add(vehicle2);
 
-        RentMgd rentMgd = new RentMgd(0, client, vehicle1, LocalDateTime.now());
-        RentMgd rentMgd2 = new RentMgd(1, client2, vehicle1, LocalDateTime.now());
-
-        rentMgdRepository.add(rentMgd);
-        rentMgdRepository.add(rentMgd2);
-        assertEquals(rentMgdRepository.findAll().size(), 2);
-
-        rentMgdRepository.delete(rentMgd.getEntityId());
-        assertEquals(rentMgdRepository.findAll().size(), 1);
-
-
-        rentMgdRepository.delete(rentMgd2.getEntityId());
-        assertEquals(rentMgdRepository.findAll().size(), 0);
+        assertThrows(MongoWriteException.class, () -> new RentMgd(0, client, vehicle1, LocalDateTime.now()));
     }
 
 }

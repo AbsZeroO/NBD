@@ -83,4 +83,22 @@ public class VehicleMgdRepositoryTest {
         assertEquals(vehicleMgdRepository.findAll().size(), 0);
 
     }
+
+    @Test
+    public void properClass() {
+        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 0, false, SegmentType.B);
+        BicycleMgd vehicle2 = new BicycleMgd(1, "LWA aaaa", 50.0, 500, 0, false);
+
+
+        vehicleMgdRepository.add(vehicle1);
+        vehicleMgdRepository.add(vehicle2);
+
+        VehicleMgd car = vehicleMgdRepository.findById(vehicle1.getEntityId());
+        VehicleMgd bike = vehicleMgdRepository.findById(vehicle2.getEntityId());
+
+        assertEquals(car.getClass(), CarMgd.class);
+        assertEquals(bike.getClass(), BicycleMgd.class);
+
+
+    }
 }

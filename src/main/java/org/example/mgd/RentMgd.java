@@ -53,6 +53,7 @@ public class RentMgd extends AbstractEntityMgd {
             vehicleRepository.updateRent(vehicleMgd);
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
 
         this.beginTime = beginTime != null ? beginTime : LocalDateTime.now();
