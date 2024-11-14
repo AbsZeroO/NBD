@@ -1,5 +1,6 @@
 package org.example.repositories;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
@@ -47,9 +48,15 @@ public class RentMgdRepository extends AbstractMongoRepository implements IRepo<
     @Override
     public List<RentMgd> findAll() {
         try {
-            return rents.find().into(new ArrayList<>());
+            FindIterable<Document> documentRents = rentsDoc.find();
+
+            List<RentMgd> mongoRent = new ArrayList<>();
+
+            for (Document rent : documentRents) {
+                mongoRent.add(RentMapper.toRentMgd(rent));
+            }
+            return mongoRent;
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

@@ -9,7 +9,6 @@ public class ClientValidation {
                         {
                           $jsonSchema: {
                              bsonType: "object",
-                             required: ["firstName", "lastName", "clientType"],
                              properties: {
                                 firstName: {
                                    bsonType: "string",

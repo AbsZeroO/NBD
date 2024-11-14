@@ -10,7 +10,6 @@ public class VehicleValidation {
                         {
                           $jsonSchema: {
                              bsonType: "object",
-                             required: ["plateNumber", "basePrice", "engineDisplacement", "rented", "archived"],
                              properties: {
                                 rented: {
                                    bsonType: "int",

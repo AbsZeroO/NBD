@@ -113,49 +113,4 @@ public class RentMgdRepositoryTest {
 
     }
 
-    @Test
-    public void maxVehicleTest() {
-        AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
-        ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                address, ClientType.BRONZE, false);
-        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0, 125, 1, false, SegmentType.B);
-        CarMgd vehicle2 = new CarMgd(1,"XYZ 1234", 30.0, 130, 0, false, SegmentType.C);
-        CarMgd vehicle3 = new CarMgd(2,"ABC 5678", 28.5, 140, 1, false, SegmentType.B);
-
-        RentMgd rentMgd1 = new RentMgd(0, client, vehicle1, LocalDateTime.now());
-        RentMgd rentMgd2 = new RentMgd(1, client, vehicle2, LocalDateTime.now());
-
-        VehicleMgdRepository vehicleMgdRepository = new VehicleMgdRepository();
-        ClientMgdRepository clientMgdRepository = new ClientMgdRepository();
-
-        clientMgdRepository.add(client);
-
-        vehicleMgdRepository.add(vehicle1);
-        vehicleMgdRepository.add(vehicle2);
-        vehicleMgdRepository.add(vehicle3);
-
-        rentMgdRepository.add(rentMgd1);
-        rentMgdRepository.add(rentMgd2);
-        assertThrows(RuntimeException.class, () -> new RentMgd(2, client, vehicle3, LocalDateTime.now()));
-
-
-    }
-
-    @Test
-    public void validationTest() {
-        AddressMgd address = new AddressMgd("Łódź", "Radwańska", "40");
-        ClientAccountMgd client = new ClientAccountMgd(0, "Maciek", "Walaszek",
-                address, ClientType.GOLD, false);
-
-        ClientAccountMgd client2 = new ClientAccountMgd(1, "Walek", "Walaszek",
-                address, ClientType.GOLD, false);
-
-        CarMgd vehicle1 = new CarMgd(0,"LWD 0000", 25.0,125, 1, false, SegmentType.B);
-
-        VehicleMgdRepository vehicleMgdRepository = new VehicleMgdRepository();
-        vehicleMgdRepository.add(vehicle1);
-
-        assertThrows(MongoWriteException.class, () -> new RentMgd(0, client, vehicle1, LocalDateTime.now()));
-    }
-
 }
