@@ -121,9 +121,6 @@ public class RentManagerTest {
         rentManager.rentVehicle(client, vehicle1);
         rentManager.rentVehicle(client, vehicle2);
 
-        Rent rent1 = rentManager.getRentFromItemId(1);
-        Rent rent2 = rentManager.getRentFromItemId(2);
-
         List<Rent> allRents = rentManager.getAllRents();
 
         assertEquals(2, allRents.size(), "There should be 2 active rents for this client.");

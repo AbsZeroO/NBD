@@ -38,6 +38,16 @@ public class Rent {
         this.endTime = null;
     }
 
+    public Rent(int Id, Client client, Vehicle vehicle, LocalDateTime beginTime, LocalDateTime endTime, double rentCost, boolean isArchived) {
+        this.Id = Id;
+        this.client = client;
+        this.vehicle = vehicle;
+        this.rentCost =  rentCost;
+        this.isArchived = isArchived;
+        this.endTime = endTime;
+        this.beginTime = beginTime;
+    }
+
     public void endRent(LocalDateTime endTime) {
         if (endTime == null) {
             LocalDateTime currentTime = LocalDateTime.now();

@@ -14,7 +14,7 @@ public class Vehicle {
 
     private boolean archived;
 
-    public Vehicle(int Id, String plateNumber, int engineDisplacement, double basePrice, int rented, boolean archived) {
+    public Vehicle(int Id, String plateNumber, double basePrice, int engineDisplacement, int rented, boolean archived) {
         this.Id = Id;
         this.plateNumber = plateNumber;
         this.engineDisplacement =  engineDisplacement;

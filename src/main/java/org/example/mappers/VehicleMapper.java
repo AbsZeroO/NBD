@@ -59,8 +59,8 @@ public class VehicleMapper {
             return new Bicycle(
                     vehicleMgd.getEntityId(),
                     vehicleMgd.getPlateNumber(),
-                    vehicleMgd.getEngineDisplacement(),
                     vehicleMgd.getBasePrice(),
+                    vehicleMgd.getEngineDisplacement(),
                     vehicleMgd.isRented(),
                     vehicleMgd.isArchived()
             );

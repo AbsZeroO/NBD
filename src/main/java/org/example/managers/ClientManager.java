@@ -24,12 +24,14 @@ public class ClientManager {
     public void deleateClient(Client client){
         clientRepo.delete(client.getId());
     }
+
     public Client getClient(int id) throws ClientException {
         return ClientMapper.clientFromMongo(clientRepo.findById(id));
     }
-    public void edit(Client client) {
+    public void updateInfo(Client client) {
         clientRepo.update(ClientMapper.clientToMongo(client));
     }
+
     public List<Client> getAllClients(){
         return clientRepo.findAll()
                 .stream()

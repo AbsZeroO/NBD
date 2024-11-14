@@ -38,7 +38,7 @@ public class VehicleManager {
         vehicleRepo.update(VehicleMapper.vehicleToMongo(vehicle));
     }
 
-    public List<Vehicle> getAllItems(){
+    public List<Vehicle> getAllVehicles(){
         return vehicleRepo.findAll()
                 .stream()
                 .map(VehicleMapper::vehicleFromMongo)

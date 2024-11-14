@@ -31,6 +31,17 @@ public class RentMapper {
     }
 
     public static Rent rentFromMongo(RentMgd rentMgd) {
+        if (rentMgd.getEndTime().isAfter(rentMgd.getBeginTime())) {
+            return new Rent(
+                    rentMgd.getEntityId(),
+                    ClientMapper.clientFromMongo(rentMgd.getClientAccountMgd()),
+                    VehicleMapper.vehicleFromMongo(rentMgd.getVehicleMgd()),
+                    rentMgd.getBeginTime(),
+                    rentMgd.getEndTime(),
+                    rentMgd.getRentCost(),
+                    rentMgd.isArchived()
+            );
+        }
         return new Rent(
                 rentMgd.getEntityId(),
                 ClientMapper.clientFromMongo(rentMgd.getClientAccountMgd()),
