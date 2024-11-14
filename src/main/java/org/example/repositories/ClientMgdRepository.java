@@ -11,26 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClientMgdRepository extends AbstractMongoRepository implements IRepo<Client> {
+public class ClientMgdRepository extends AbstractMongoRepository implements IRepo<ClientAccountMgd> {
     private final MongoCollection<ClientAccountMgd> clients =
             getMongodb().getCollection("clients", ClientAccountMgd.class);
 
-    public boolean add(Client client) {
+    public boolean add(ClientAccountMgd client) {
         try {
-            ClientAccountMgd clientMgd = ClientMapper.clientToMongo(client);
-            return clients.insertOne(clientMgd).wasAcknowledged();
+            return clients.insertOne(client).wasAcknowledged();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public Client findById(int id) {
+    public ClientAccountMgd findById(int id) {
         try {
             Document clientDocument = getMongodb().getCollection("clients").find(Filters.eq("_id", id)).first();
             if (clientDocument != null) {
-                ClientAccountMgd clientMgd = ClientMapper.toClientMgd(clientDocument);
-                return ClientMapper.clientFromMongo(clientMgd);
+                return ClientMapper.toClientMgd(clientDocument);
             }
             else {
                 return null;
@@ -41,10 +39,9 @@ public class ClientMgdRepository extends AbstractMongoRepository implements IRep
         }
     }
 
-    public boolean update(Client client) {
+    public boolean update(ClientAccountMgd client) {
         try {
-            ClientAccountMgd clientMgd = ClientMapper.clientToMongo(client);
-            return clients.replaceOne(Filters.eq("_id", client.getId()), clientMgd).wasAcknowledged();
+            return clients.replaceOne(Filters.eq("_id", client.getEntityId()), client).wasAcknowledged();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -60,11 +57,9 @@ public class ClientMgdRepository extends AbstractMongoRepository implements IRep
         }
     }
 
-    public List<Client> findAll() {
+    public List<ClientAccountMgd> findAll() {
         try {
-            return clients.find()
-                    .map(ClientMapper::clientFromMongo)
-                    .into(new ArrayList<>());
+            return clients.find().into(new ArrayList<>());
         } catch (Exception e) {
             e.printStackTrace();
             return null;

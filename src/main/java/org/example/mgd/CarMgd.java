@@ -1,5 +1,6 @@
 package org.example.mgd;
 
+import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.example.model.SegmentType;
@@ -9,6 +10,7 @@ public class CarMgd extends VehicleMgd {
     @BsonProperty("segmentType")
     private SegmentType segmentType;
 
+    @BsonCreator
     public CarMgd(@BsonProperty("_id") int entityId,
                   @BsonProperty("plateNumber") String plateNumber,
                   @BsonProperty("basePrice") double basePrice,

@@ -5,32 +5,31 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.example.mappers.VehicleMapper;
 import org.example.mgd.VehicleMgd;
-import org.example.model.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleMgdRepository extends AbstractMongoRepository implements IRepo<Vehicle> {
+public class VehicleMgdRepository extends AbstractMongoRepository implements IRepo<VehicleMgd> {
 
     private final MongoCollection<VehicleMgd> vehicles =
             getMongodb().getCollection("vehicles", VehicleMgd.class);
 
-    public boolean add(Vehicle vehicle) {
+    private final MongoCollection<Document> vehiclesDoc = getMongodb().getCollection("vehicles");
+
+    public boolean add(VehicleMgd vehicle) {
         try {
-            VehicleMgd vehicleMgd = VehicleMapper.vehicleToMongo(vehicle);
-            return vehicles.insertOne(vehicleMgd).wasAcknowledged();
+            return vehicles.insertOne(vehicle).wasAcknowledged();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public Vehicle findById(int id) {
+    public VehicleMgd findById(int id) {
         try {
-            Document vehicleDocument = getMongodb().getCollection("vehicles").find(Filters.eq("_id", id)).first();
+            Document vehicleDocument = vehiclesDoc.find(Filters.eq("_id", id)).first();
             if (vehicleDocument != null) {
-                VehicleMgd vehicleMgd = VehicleMapper.toVehicleMgd(vehicleDocument);
-                return VehicleMapper.vehicleFromMongo(vehicleMgd);
+                return VehicleMapper.toVehicleMgd(vehicleDocument);
             }
             else {
                 return null;
@@ -41,10 +40,9 @@ public class VehicleMgdRepository extends AbstractMongoRepository implements IRe
         }
     }
 
-    public boolean update(Vehicle vehicle) {
+    public boolean update(VehicleMgd vehicle) {
         try {
-            VehicleMgd vehicleMgd = VehicleMapper.vehicleToMongo(vehicle);
-            return vehicles.replaceOne(Filters.eq("_id", vehicle.getId()), vehicleMgd).wasAcknowledged();
+            return vehicles.replaceOne(Filters.eq("_id", vehicle.getEntityId()), vehicle).wasAcknowledged();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -60,11 +58,9 @@ public class VehicleMgdRepository extends AbstractMongoRepository implements IRe
         }
     }
 
-    public List<Vehicle> findAll() {
+    public List<VehicleMgd> findAll() {
         try {
-            return vehicles.find()
-                    .map(VehicleMapper::vehicleFromMongo)
-                    .into(new ArrayList<>());
+            return vehicles.find().into(new ArrayList<>());
         } catch (Exception e) {
             e.printStackTrace();
             return null;

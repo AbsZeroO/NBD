@@ -22,7 +22,8 @@ public class ClientMapper {
                 client.getLastName(),
                 toAddressMgd(client.getAddress()),
                 client.getClientType(),
-                client.isArchived());
+                client.isArchived()
+        );
     }
 
     public static Client clientFromMongo(ClientAccountMgd client) {
@@ -32,7 +33,8 @@ public class ClientMapper {
                 client.getLastName(),
                 toAddress(client.getAddressMgd()),
                 client.getClientType(),
-                client.isArchived());
+                client.isArchived()
+        );
     }
 
     public static ClientAccountMgd toClientMgd(Document clientDocument) {

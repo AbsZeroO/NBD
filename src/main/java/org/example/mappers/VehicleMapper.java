@@ -12,12 +12,12 @@ import org.example.model.SegmentType;
 public class VehicleMapper {
 
     private static final String ID = "_id";
-    private static final String PLATE_NUMBER = "plate_number";
-    private static final String BASE_PRICE = "base_price";
-    private static final String ENGINE_DISPLACEMENT = "engine_displacement";
+    private static final String PLATE_NUMBER = "plateNumber";
+    private static final String BASE_PRICE = "basePrice";
+    private static final String ENGINE_DISPLACEMENT = "engineDisplacement";
     private static final String IS_RENTED = "rented";
-    private static final String IS_ARCHIVE = "archive";
-    private static final String SEGMENT_TYPE = "segment_type";
+    private static final String IS_ARCHIVE = "archived";
+    private static final String SEGMENT_TYPE = "segmentType";
 
 
     public static VehicleMgd vehicleToMongo(Vehicle vehicle) {
@@ -81,7 +81,7 @@ public class VehicleMapper {
 
     public static CarMgd toCarMgd(Document carDocument) {
         return new CarMgd(
-                carDocument.get(ID, Integer.class),
+                carDocument.getInteger(ID),
                 carDocument.getString(PLATE_NUMBER),
                 carDocument.getDouble(BASE_PRICE),
                 carDocument.getInteger(ENGINE_DISPLACEMENT),
@@ -93,7 +93,7 @@ public class VehicleMapper {
 
     public static BicycleMgd toBicycleMgd(Document bicycleDocument) {
         return new BicycleMgd(
-                bicycleDocument.get(ID, Integer.class),
+                bicycleDocument.getInteger(ID),
                 bicycleDocument.getString(PLATE_NUMBER),
                 bicycleDocument.getDouble(BASE_PRICE),
                 bicycleDocument.getInteger(ENGINE_DISPLACEMENT),
