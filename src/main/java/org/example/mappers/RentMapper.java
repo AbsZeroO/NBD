@@ -5,6 +5,7 @@ import org.example.mgd.ClientAccountMgd;
 import org.example.mgd.RentMgd;
 import org.example.mgd.VehicleMgd;
 import org.example.model.Rent;
+import org.example.red.RentJsonb;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -81,6 +82,40 @@ public class RentMapper {
         );
     }
 
+    public static RentJsonb rentToRedis(Rent rent) {
+        return new RentJsonb(
+                rent.getId(),
+                ClientMapper.clientToRedis(rent.getClient()),
+                VehicleMapper.vehicleToRedis(rent.getVehicle()),
+                rent.getBeginTime(),
+                rent.getEndTime(),
+                rent.getRentCost(),
+                rent.isArchived()
+        );
+    }
+
+    public static Rent rentFromRedis(RentJsonb rentJsonb) {
+        if (rentJsonb.getEndTime() == null) {
+            return new Rent(
+                    rentJsonb.getEntityId(),
+                    ClientMapper.clientFromRedis(rentJsonb.getClientAccountJsonb()),
+                    VehicleMapper.vehicleFromRedis(rentJsonb.getVehicleJsonb()),
+                    rentJsonb.getBeginTime()
+            );
+        }
+        if (rentJsonb.getEndTime().isAfter(rentJsonb.getBeginTime())) {
+            return new Rent(
+                    rentJsonb.getEntityId(),
+                    ClientMapper.clientFromRedis(rentJsonb.getClientAccountJsonb()),
+                    VehicleMapper.vehicleFromRedis(rentJsonb.getVehicleJsonb()),
+                    rentJsonb.getBeginTime(),
+                    rentJsonb.getEndTime(),
+                    rentJsonb.getRentCost(),
+                    rentJsonb.isArchived()
+            );
+        }
+        return null;
+    }
 
 
 }

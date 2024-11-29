@@ -1,13 +1,12 @@
 package validation;
 
 import com.mongodb.MongoWriteException;
-import org.example.managers.ClientManager;
 import org.example.managers.RentManager;
 import org.example.mappers.ClientMapper;
 import org.example.mappers.VehicleMapper;
 import org.example.model.*;
 import org.example.repositories.ClientMgdRepository;
-import org.example.repositories.RentMgdRepository;
+import org.example.repositories.Rent.RentMgdRepository;
 import org.example.repositories.VehicleMgdRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

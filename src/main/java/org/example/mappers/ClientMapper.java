@@ -6,6 +6,8 @@ import org.example.mgd.ClientAccountMgd;
 import org.example.model.Client;
 import org.example.model.Address;
 import org.example.model.ClientType;
+import org.example.red.AddressJsonb;
+import org.example.red.ClientAccountJsonb;
 
 public class ClientMapper {
     private static final String ID = "_id";
@@ -73,6 +75,46 @@ public class ClientMapper {
                 addressMgd.getCity(),
                 addressMgd.getStreet(),
                 addressMgd.getHouseNumber()
+        );
+    }
+
+    public static Client clientFromRedis(ClientAccountJsonb clientAccountJsonb) {
+        return new Client(
+                clientAccountJsonb.getEntityId(),
+                clientAccountJsonb.getFirstName(),
+                clientAccountJsonb.getLastName(),
+                toAddress(clientAccountJsonb.getAddressJsonb()),
+                clientAccountJsonb.getClientType(),
+                clientAccountJsonb.isArchived(),
+                clientAccountJsonb.getRents()
+        );
+    }
+
+    public static ClientAccountJsonb clientToRedis(Client client) {
+        return new ClientAccountJsonb(
+                client.getId(),
+                client.getFirstName(),
+                client.getLastName(),
+                toAddressJsonb(client.getAddress()),
+                client.getClientType(),
+                client.isArchived(),
+                client.getRents()
+        );
+    }
+
+    public static Address toAddress(AddressJsonb addressJsonb) {
+        return new Address(
+                addressJsonb.getCity(),
+                addressJsonb.getStreet(),
+                addressJsonb.getHouseNumber()
+        );
+    }
+
+    public static AddressJsonb toAddressJsonb(Address address) {
+        return new AddressJsonb(
+                address.getCity(),
+                address.getStreet(),
+                address.getHouseNumber()
         );
     }
 }

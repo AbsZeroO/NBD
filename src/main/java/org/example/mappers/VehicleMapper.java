@@ -8,6 +8,9 @@ import org.example.model.Bicycle;
 import org.example.model.Car;
 import org.example.model.Vehicle;
 import org.example.model.SegmentType;
+import org.example.red.BicycleJsonb;
+import org.example.red.CarJsonb;
+import org.example.red.VehicleJsonb;
 
 public class VehicleMapper {
 
@@ -102,4 +105,53 @@ public class VehicleMapper {
         );
     }
 
+    public static Vehicle vehicleFromRedis(VehicleJsonb vehicleJsonb) {
+        if (vehicleJsonb instanceof CarJsonb) {
+            return new Car(
+                    vehicleJsonb.getEntityId(),
+                    vehicleJsonb.getPlateNumber(),
+                    vehicleJsonb.getBasePrice(),
+                    vehicleJsonb.getEngineDisplacement(),
+                    vehicleJsonb.isRented(),
+                    vehicleJsonb.isArchived(),
+                    ((CarJsonb) vehicleJsonb).getSegmentType()
+            );
+        } else if (vehicleJsonb instanceof BicycleJsonb) {
+            return new Bicycle(
+                    vehicleJsonb.getEntityId(),
+                    vehicleJsonb.getPlateNumber(),
+                    vehicleJsonb.getBasePrice(),
+                    vehicleJsonb.getEngineDisplacement(),
+                    vehicleJsonb.isRented(),
+                    vehicleJsonb.isArchived()
+            );
+        } else {
+            return null;
+        }
+    }
+
+    public static VehicleJsonb vehicleToRedis(Vehicle vehicle) {
+        if (vehicle instanceof Car) {
+            return new CarJsonb(
+                    vehicle.getId(),
+                    vehicle.getPlateNumber(),
+                    vehicle.getBasePrice(),
+                    vehicle.getEngineDisplacement(),
+                    vehicle.isRented(),
+                    vehicle.isArchived(),
+                    ((Car) vehicle).getSegmentType()
+            );
+        } else if (vehicle instanceof Bicycle) {
+            return new BicycleJsonb(
+                    vehicle.getId(),
+                    vehicle.getPlateNumber(),
+                    vehicle.getBasePrice(),
+                    vehicle.getEngineDisplacement(),
+                    vehicle.isRented(),
+                    vehicle.isArchived()
+            );
+        } else {
+            return null;
+        }
+    }
 }

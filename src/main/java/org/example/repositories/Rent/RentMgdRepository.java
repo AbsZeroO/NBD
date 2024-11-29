@@ -1,12 +1,13 @@
-package org.example.repositories;
+package org.example.repositories.Rent;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.example.mappers.RentMapper;
-import org.example.mgd.ClientAccountMgd;
 import org.example.mgd.RentMgd;
+import org.example.repositories.AbstractMongoRepository;
+import org.example.repositories.IRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,4 @@ public class RentMgdRepository extends AbstractMongoRepository implements IRepo<
         }
     }
 
-    public int countClients(ClientAccountMgd clientAccountMgd) {
-        return (int) rents.countDocuments(Filters.eq("client._id", clientAccountMgd.getEntityId()));
-    }
 }

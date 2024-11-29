@@ -2,17 +2,15 @@ package org.example.red;
 
 import jakarta.json.bind.annotation.JsonbCreator;
 import jakarta.json.bind.annotation.JsonbProperty;
-import org.bson.codecs.pojo.annotations.BsonCreator;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class RentJsonb extends AbstractEntityJsonb {
     @JsonbProperty("client")
-    private ClientAccountJsonb clientAccountMgd;
+    private ClientAccountJsonb clientAccountJsonb;
     @JsonbProperty("vehicle")
-    private VehicleJsonb vehicleMgd;
+    private VehicleJsonb vehicleJsonb;
     @JsonbProperty("beginTime")
     private LocalDateTime beginTime;
     @JsonbProperty("endTime")
@@ -31,8 +29,8 @@ public class RentJsonb extends AbstractEntityJsonb {
                      @JsonbProperty("rentCost") double rentCost,
                      @JsonbProperty("archived") boolean isArchived) {
         super(entityId);
-        this.clientAccountMgd = clientAccountMgd;
-        this.vehicleMgd = vehicleMgd;
+        this.clientAccountJsonb = clientAccountMgd;
+        this.vehicleJsonb = vehicleMgd;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.rentCost = rentCost;
@@ -44,8 +42,8 @@ public class RentJsonb extends AbstractEntityJsonb {
                      @JsonbProperty("vehicle") VehicleJsonb vehicleMgd,
                      @JsonbProperty("beginTime") LocalDateTime beginTime) {
         super(entityId);
-        this.clientAccountMgd = clientAccountMgd;
-        this.vehicleMgd = vehicleMgd;
+        this.clientAccountJsonb = clientAccountMgd;
+        this.vehicleJsonb = vehicleMgd;
         this.beginTime = beginTime != null ? beginTime : LocalDateTime.now();
         this.isArchived = false;
         this.rentCost = clientAccountMgd.getClientType().applyDiscount(vehicleMgd.getBasePrice());
@@ -61,6 +59,10 @@ public class RentJsonb extends AbstractEntityJsonb {
 
     }
 
+    public RentJsonb() {
+        super();
+    }
+
     public LocalDateTime getBeginTime() { return beginTime; }
     public LocalDateTime getEndTime() { return endTime; }
     public double getRentCost() { return rentCost; }
@@ -69,7 +71,7 @@ public class RentJsonb extends AbstractEntityJsonb {
 
     public void endRent(LocalDateTime endTime) {
         this.endTime = endTime != null ? endTime : LocalDateTime.now();
-        this.rentCost = getRentDays() * clientAccountMgd.getClientType().applyDiscount(vehicleMgd.getBasePrice());
+        this.rentCost = getRentDays() * clientAccountJsonb.getClientType().applyDiscount(vehicleJsonb.getBasePrice());
         this.isArchived = true;
     }
 
@@ -79,8 +81,8 @@ public class RentJsonb extends AbstractEntityJsonb {
 
     @Override
     public String toString() {
-        return "RentJsonb{" + "clientAccountMgd=" + clientAccountMgd +
-                ", vehicleMgd=" + vehicleMgd +
+        return "RentJsonb{" + "clientAccountMgd=" + clientAccountJsonb +
+                ", vehicleMgd=" + vehicleJsonb +
                 ", beginTime=" + beginTime +
                 ", endTime=" + endTime +
                 ", rentCost=" + rentCost +
@@ -88,13 +90,13 @@ public class RentJsonb extends AbstractEntityJsonb {
                 '}';
     }
 
-    public ClientAccountJsonb getClientAccountMgd() {
-        return clientAccountMgd;
+    public ClientAccountJsonb getClientAccountJsonb() {
+        return clientAccountJsonb;
     }
 
 
-    public VehicleJsonb getVehicleMgd() {
-        return vehicleMgd;
+    public VehicleJsonb getVehicleJsonb() {
+        return vehicleJsonb;
     }
 
     public void setEndTime(LocalDateTime endTime) {
@@ -105,12 +107,12 @@ public class RentJsonb extends AbstractEntityJsonb {
         this.rentCost = rentCost;
     }
 
-    public void setClientAccountMgd(ClientAccountJsonb clientAccountMgd) {
-        this.clientAccountMgd = clientAccountMgd;
+    public void setClientAccountJsonb(ClientAccountJsonb clientAccountJsonb) {
+        this.clientAccountJsonb = clientAccountJsonb;
     }
 
-    public void setVehicleMgd(VehicleJsonb vehicleMgd) {
-        this.vehicleMgd = vehicleMgd;
+    public void setVehicleJsonb(VehicleJsonb vehicleJsonb) {
+        this.vehicleJsonb = vehicleJsonb;
     }
 
     public void setBeginTime(LocalDateTime beginTime) {

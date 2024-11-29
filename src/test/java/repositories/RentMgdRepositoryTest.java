@@ -1,14 +1,9 @@
 package repositories;
 
-import com.mongodb.MongoWriteConcernException;
-import com.mongodb.MongoWriteException;
-import org.example.exceptions.RentException;
 import org.example.mgd.*;
 import org.example.model.ClientType;
 import org.example.model.SegmentType;
-import org.example.repositories.ClientMgdRepository;
-import org.example.repositories.RentMgdRepository;
-import org.example.repositories.VehicleMgdRepository;
+import org.example.repositories.Rent.RentMgdRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

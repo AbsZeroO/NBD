@@ -13,6 +13,10 @@ public abstract class AbstractEntityJsonb implements Serializable {
         this.entityId = entityId;
     }
 
+    public AbstractEntityJsonb() {
+
+    }
+
     public int getEntityId() {
         return entityId;
     }

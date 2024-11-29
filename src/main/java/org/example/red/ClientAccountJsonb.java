@@ -4,8 +4,6 @@ import jakarta.json.bind.annotation.JsonbCreator;
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbSubtype;
 import jakarta.json.bind.annotation.JsonbTypeInfo;
-import org.bson.codecs.pojo.annotations.BsonCreator;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.example.model.ClientType;
 
 @JsonbTypeInfo({
@@ -17,7 +15,7 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
     @JsonbProperty("lastName")
     private String lastName;
     @JsonbProperty("address")
-    private AddressJsonb addressMgd;
+    private AddressJsonb addressJsonb;
     @JsonbProperty("clientType")
     private ClientType clientType;
     @JsonbProperty("archived")
@@ -36,7 +34,7 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
         super(entityId);
         this.firstName = firstName;
         this.lastName = lastName;
-        this.addressMgd = addressMgd;
+        this.addressJsonb = addressMgd;
         this.clientType = clientType;
         this.isArchived = isArchived;
         this.rents = rents;
@@ -82,19 +80,19 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
         isArchived = archived;
     }
 
-    public AddressJsonb getAddressMgd() {
-        return addressMgd;
+    public AddressJsonb getAddressJsonb() {
+        return addressJsonb;
     }
 
-    public void setAddressMgd(AddressJsonb addressMgd) {
-        this.addressMgd = addressMgd;
+    public void setAddressJsonb(AddressJsonb addressJsonb) {
+        this.addressJsonb = addressJsonb;
     }
 
     @Override
     public String toString() {
         return "ClientAccountJsonb{" + " firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address=" + addressMgd +
+                ", address=" + addressJsonb +
                 ", clientType=" + clientType +
                 ", isArchived=" + isArchived +
                 '}';
