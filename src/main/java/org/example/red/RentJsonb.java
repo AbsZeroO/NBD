@@ -2,6 +2,7 @@ package org.example.red;
 
 import jakarta.json.bind.annotation.JsonbCreator;
 import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbTypeAdapter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class RentJsonb extends AbstractEntityJsonb {
     private boolean isArchived;
 
     @JsonbCreator
-    public RentJsonb(@JsonbProperty("_id") int entityId,
+    public RentJsonb(@JsonbProperty("entityId") int entityId,
                      @JsonbProperty("client") ClientAccountJsonb clientAccountMgd,
                      @JsonbProperty("vehicle") VehicleJsonb vehicleMgd,
                      @JsonbProperty("beginTime") LocalDateTime beginTime,
@@ -37,7 +38,7 @@ public class RentJsonb extends AbstractEntityJsonb {
         this.isArchived = isArchived;
     }
 
-    public RentJsonb(@JsonbProperty("_id") int entityId,
+    public RentJsonb(@JsonbProperty("entityId") int entityId,
                      @JsonbProperty("client") ClientAccountJsonb clientAccountMgd,
                      @JsonbProperty("vehicle") VehicleJsonb vehicleMgd,
                      @JsonbProperty("beginTime") LocalDateTime beginTime) {
@@ -66,7 +67,7 @@ public class RentJsonb extends AbstractEntityJsonb {
     public LocalDateTime getBeginTime() { return beginTime; }
     public LocalDateTime getEndTime() { return endTime; }
     public double getRentCost() { return rentCost; }
-    public boolean isArchived() { return isArchived; }
+    public boolean getArchived() { return isArchived; }
     public void setArchived(boolean archived) { isArchived = archived; }
 
     public void endRent(LocalDateTime endTime) {
@@ -79,16 +80,6 @@ public class RentJsonb extends AbstractEntityJsonb {
         return Duration.between(beginTime, endTime != null ? endTime : LocalDateTime.now()).toDays();
     }
 
-    @Override
-    public String toString() {
-        return "RentJsonb{" + "clientAccountMgd=" + clientAccountJsonb +
-                ", vehicleMgd=" + vehicleJsonb +
-                ", beginTime=" + beginTime +
-                ", endTime=" + endTime +
-                ", rentCost=" + rentCost +
-                ", isArchived=" + isArchived +
-                '}';
-    }
 
     public ClientAccountJsonb getClientAccountJsonb() {
         return clientAccountJsonb;

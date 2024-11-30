@@ -111,7 +111,7 @@ public class RentMapper {
                     rentJsonb.getBeginTime(),
                     rentJsonb.getEndTime(),
                     rentJsonb.getRentCost(),
-                    rentJsonb.isArchived()
+                    rentJsonb.getArchived()
             );
         }
         return null;

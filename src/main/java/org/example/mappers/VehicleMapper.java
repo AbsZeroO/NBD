@@ -112,8 +112,8 @@ public class VehicleMapper {
                     vehicleJsonb.getPlateNumber(),
                     vehicleJsonb.getBasePrice(),
                     vehicleJsonb.getEngineDisplacement(),
-                    vehicleJsonb.isRented(),
-                    vehicleJsonb.isArchived(),
+                    vehicleJsonb.getRented(),
+                    vehicleJsonb.getArchived(),
                     ((CarJsonb) vehicleJsonb).getSegmentType()
             );
         } else if (vehicleJsonb instanceof BicycleJsonb) {
@@ -122,8 +122,8 @@ public class VehicleMapper {
                     vehicleJsonb.getPlateNumber(),
                     vehicleJsonb.getBasePrice(),
                     vehicleJsonb.getEngineDisplacement(),
-                    vehicleJsonb.isRented(),
-                    vehicleJsonb.isArchived()
+                    vehicleJsonb.getRented(),
+                    vehicleJsonb.getArchived()
             );
         } else {
             return null;

@@ -9,6 +9,7 @@ import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 @JsonbTypeInfo({
+        @JsonbSubtype(alias = "vehicle", type = VehicleJsonb.class),
         @JsonbSubtype(alias = "car", type = CarJsonb.class),
         @JsonbSubtype(alias = "bicycle", type = BicycleJsonb.class)
 })
@@ -30,7 +31,7 @@ public class VehicleJsonb extends AbstractEntityJsonb {
     private boolean archived;
 
     @JsonbCreator
-    public VehicleJsonb(@JsonbProperty("_id") int entityId,
+    public VehicleJsonb(@JsonbProperty("entityId") int entityId,
                         @JsonbProperty("plateNumber") String plateNumber,
                         @JsonbProperty("basePrice") double basePrice,
                         @JsonbProperty("engineDisplacement") int engineDisplacement,
@@ -42,6 +43,10 @@ public class VehicleJsonb extends AbstractEntityJsonb {
         this.engineDisplacement = engineDisplacement;
         this.rented = rented;
         this.archived = archived;
+    }
+
+    public VehicleJsonb() {
+        super();
     }
 
     public String getPlateNumber() {
@@ -68,7 +73,7 @@ public class VehicleJsonb extends AbstractEntityJsonb {
         this.engineDisplacement = engineDisplacement;
     }
 
-    public int isRented() {
+    public int getRented() {
         return rented;
     }
 
@@ -76,7 +81,7 @@ public class VehicleJsonb extends AbstractEntityJsonb {
         this.rented = rented;
     }
 
-    public boolean isArchived() {
+    public boolean getArchived() {
         return archived;
     }
 
@@ -84,13 +89,7 @@ public class VehicleJsonb extends AbstractEntityJsonb {
         this.archived = archived;
     }
 
-    @Override
-    public String toString() {
-        return "VehicleJsonb{" + "plateNumber='" + plateNumber + '\'' +
-                ", basePrice=" + basePrice +
-                ", engineDisplacement=" + engineDisplacement +
-                ", rented=" + rented +
-                ", archived=" + archived +
-                '}';
+    public boolean isArchived() {
+        return archived;
     }
 }

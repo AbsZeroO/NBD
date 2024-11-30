@@ -54,12 +54,4 @@ public class ClientTypeJsonb {
         return price - (price * discountRate);
     }
 
-    @Override
-    public String toString() {
-        return "ClientTypeJsonb{" +
-                "maxVehicle=" + maxVehicle +
-                ", discountRate=" + discountRate +
-                ", typeInfo='" + typeInfo + '\'' +
-                '}';
-    }
 }

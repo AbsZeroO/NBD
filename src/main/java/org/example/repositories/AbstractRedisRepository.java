@@ -40,9 +40,9 @@ public class AbstractRedisRepository implements AutoCloseable {
     public static String getNode(String key) throws IOException {
         String json = new String(Files.readAllBytes(Paths.get("src/main/java/org/example/config/config.json")));
 
-        try (Jsonb jsonb = JsonbBuilder.create();) {
+        try (Jsonb jsonb = JsonbBuilder.create()) {
             Map<String, String> map = jsonb.fromJson(json, Map.class);
-            return map.get(key);
+            return map.get(key).toString();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,6 +23,10 @@ public class AddressJsonb {
         this.houseNumber = houseNumber;
     }
 
+    public AddressJsonb() {
+        super();
+    }
+
     public String getCity() {
         return city;
     }
@@ -47,11 +51,4 @@ public class AddressJsonb {
         this.houseNumber = houseNumber;
     }
 
-    @Override
-    public String toString() {
-        return "AddressJsonb{" + "city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", houseNumber='" + houseNumber + '\'' +
-                '}';
-    }
 }

@@ -6,9 +6,6 @@ import jakarta.json.bind.annotation.JsonbSubtype;
 import jakarta.json.bind.annotation.JsonbTypeInfo;
 import org.example.model.ClientType;
 
-@JsonbTypeInfo({
-        @JsonbSubtype(alias = "clientType", type = ClientTypeJsonb.class)
-})
 public class ClientAccountJsonb extends AbstractEntityJsonb {
     @JsonbProperty("firstName")
     private String firstName;
@@ -24,7 +21,7 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
     private int rents;
 
     @JsonbCreator
-    public ClientAccountJsonb(@JsonbProperty("_id") int entityId,
+    public ClientAccountJsonb(@JsonbProperty("entityId") int entityId,
                               @JsonbProperty("firstName") String firstName,
                               @JsonbProperty("lastName") String lastName,
                               @JsonbProperty("address") AddressJsonb addressMgd,
@@ -38,6 +35,10 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
         this.clientType = clientType;
         this.isArchived = isArchived;
         this.rents = rents;
+    }
+
+    public ClientAccountJsonb() {
+        super();
     }
 
     public int getRents() {
@@ -72,7 +73,7 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
         this.clientType = clientType;
     }
 
-    public boolean isArchived() {
+    public boolean getArchived() {
         return isArchived;
     }
 
@@ -88,13 +89,4 @@ public class ClientAccountJsonb extends AbstractEntityJsonb {
         this.addressJsonb = addressJsonb;
     }
 
-    @Override
-    public String toString() {
-        return "ClientAccountJsonb{" + " firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address=" + addressJsonb +
-                ", clientType=" + clientType +
-                ", isArchived=" + isArchived +
-                '}';
-    }
 }

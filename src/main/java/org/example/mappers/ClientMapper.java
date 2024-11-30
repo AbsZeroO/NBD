@@ -85,7 +85,7 @@ public class ClientMapper {
                 clientAccountJsonb.getLastName(),
                 toAddress(clientAccountJsonb.getAddressJsonb()),
                 clientAccountJsonb.getClientType(),
-                clientAccountJsonb.isArchived(),
+                clientAccountJsonb.getArchived(),
                 clientAccountJsonb.getRents()
         );
     }

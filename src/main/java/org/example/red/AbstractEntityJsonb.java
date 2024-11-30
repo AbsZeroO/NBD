@@ -5,7 +5,7 @@ import jakarta.json.bind.annotation.JsonbProperty;
 import java.io.Serializable;
 
 public abstract class AbstractEntityJsonb implements Serializable {
-    @JsonbProperty("_id")
+    @JsonbProperty("entityId")
     private int entityId;
 
     @JsonbCreator
@@ -14,7 +14,6 @@ public abstract class AbstractEntityJsonb implements Serializable {
     }
 
     public AbstractEntityJsonb() {
-
     }
 
     public int getEntityId() {
