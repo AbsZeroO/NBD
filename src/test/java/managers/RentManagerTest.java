@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RentManagerTest {
     private static final RentMgdRepository repository = new RentMgdRepository();
-    private static final RentManager rentManager = new RentManager(repository);
+    private static final RentManager rentManager = new RentManager();
 
 
 
@@ -30,6 +30,7 @@ public class RentManagerTest {
         repository.getMongodb().getCollection("clients").drop();
         repository.getMongodb().getCollection("vehicles").drop();
         repository.getMongodb().getCollection("rents").drop();
+        rentManager.clearCashe();
     }
 
     @AfterAll
@@ -42,6 +43,7 @@ public class RentManagerTest {
         repository.getMongodb().getCollection("clients").drop();
         repository.getMongodb().getCollection("vehicles").drop();
         repository.getMongodb().getCollection("rents").drop();
+        rentManager.clearCashe();
     }
 
 

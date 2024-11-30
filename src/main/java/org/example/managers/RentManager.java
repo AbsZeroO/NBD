@@ -10,6 +10,8 @@ import org.example.model.Client;
 import org.example.model.Rent;
 import org.example.model.Vehicle;
 import org.example.repositories.ClientMgdRepository;
+import org.example.repositories.Rent.RentFailOverRepository;
+import org.example.repositories.Rent.RentJsonbRepository;
 import org.example.repositories.Rent.RentMgdRepository;
 import org.example.repositories.VehicleMgdRepository;
 
@@ -19,13 +21,13 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RentManager {
-    private final RentMgdRepository rentRepo;
+    private final RentFailOverRepository rentRepo;
     private final VehicleMgdRepository vehRepo = new VehicleMgdRepository();
     private final ClientMgdRepository clientRepo = new ClientMgdRepository();
     private static AtomicInteger idGenerator = new AtomicInteger(1);
 
-    public RentManager(RentMgdRepository rentRepo) {
-        this.rentRepo = rentRepo;
+    public RentManager() {
+        this.rentRepo = new RentFailOverRepository(new RentJsonbRepository(), new RentMgdRepository());
     }
 
     public void rentVehicle(Client client, Vehicle vehicle) {
@@ -37,7 +39,7 @@ public class RentManager {
             clientRepo.incRent(ClientMapper.clientToMongo(client));
             client.setRents(client.getRents() + 1);
             vehicle.setRented(1);
-            rentRepo.add(RentMapper.rentToMongo(rent));
+            rentRepo.add(rent);
 
         } catch (MongoWriteException e) {
             e.printStackTrace();
@@ -53,7 +55,7 @@ public class RentManager {
             clientRepo.decRent(ClientMapper.clientToMongo(rent.getClient()));
             rent.getClient().setRents(rent.getClient().getRents() - 1);
             rent.endRent(date);
-            rentRepo.update(RentMapper.rentToMongo(rent));
+            rentRepo.update(rent);
             return rent.getVehicle();
 
         } catch (MongoWriteException e) {
@@ -63,19 +65,14 @@ public class RentManager {
     }
 
     public Rent getRentFromItemId(int id) throws RentException {
-        return RentMapper.rentFromMongo(rentRepo.findById(id));
+        return rentRepo.findById(id);
     }
 
     public List<Rent> getAllRents() {
-        List<RentMgd> rentMgdList = rentRepo.findAll();
-
-        List<Rent> rents = new ArrayList<>();
-        for (RentMgd rentMgd : rentMgdList) {
-            Rent rent = RentMapper.rentFromMongo(rentMgd);
-            rents.add(rent);
-        }
-
-        return rents;
+        return rentRepo.findAll();
     }
 
+    public void clearCashe() {
+        rentRepo.clearCashe();
+    }
 }

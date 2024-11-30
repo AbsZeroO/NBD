@@ -7,6 +7,7 @@ import org.example.model.SegmentType;
 import org.example.red.*;
 import org.example.repositories.Rent.RentJsonbRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class RentJsonbRepositoryTest {
     private static final RentJsonbRepository rentJsonbRepository = new RentJsonbRepository();
+
+    @BeforeAll
+    public static void beforAll() {
+        rentJsonbRepository.clearCashe();
+    }
 
     @AfterEach
     public void afterEach() {
@@ -33,7 +39,6 @@ public class RentJsonbRepositoryTest {
 
         RentJsonb rentMgd = new RentJsonb(0, client, vehicle1, LocalDateTime.now());
 
-        Jsonb jsonb = JsonbBuilder.create();
 
         rentJsonbRepository.add(rentMgd);
         assertEquals(rentJsonbRepository.findAll().size(), 1);

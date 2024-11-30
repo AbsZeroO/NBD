@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VehicleValidationTest {
     private static final RentMgdRepository repository = new RentMgdRepository();
-    private static final RentManager rentManager = new RentManager(repository);
+    private static final RentManager rentManager = new RentManager();
 
     @BeforeAll
     public static void beforeAll() {
