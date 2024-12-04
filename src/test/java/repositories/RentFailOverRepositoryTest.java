@@ -37,7 +37,6 @@ public class RentFailOverRepositoryTest {
     public void cleanup() {
         try {
             redisRepository.clearCashe();
-            mongodbRepository.getMongodb().getCollection("rents").drop();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -36,8 +36,12 @@ public class AbstractRedisRepository implements AutoCloseable {
     private void initConnection() {
         pool = new JedisPooled(new HostAndPort(host, port), DefaultJedisClientConfig.builder().build());
 
-        pool.configSet("maxmemory", "10mb");
-        pool.configSet("maxmemory-policy", "allkeys-lru");
+        try {
+            pool.configSet("maxmemory", "10mb");
+            pool.configSet("maxmemory-policy", "allkeys-lru");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getNode(String key) throws IOException {
