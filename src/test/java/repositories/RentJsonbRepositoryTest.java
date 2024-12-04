@@ -11,9 +11,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RentJsonbRepositoryTest {
     private static final RentJsonbRepository rentJsonbRepository = new RentJsonbRepository();
@@ -104,6 +105,24 @@ public class RentJsonbRepositoryTest {
         rentJsonbRepository.delete(rentMgd2.getEntityId());
         assertEquals(rentJsonbRepository.findAll().size(), 0);
 
+    }
+    @Test
+    public void evictionPolicyTest() throws InterruptedException {
+        AddressJsonb address = new AddressJsonb("Łódź", "Radwańska", "40");
+        ClientAccountJsonb client = new ClientAccountJsonb(0, "Maciek", "Walaszek",
+                address, ClientType.GOLD, false, 0);
+
+        CarJsonb vehicle1 = new CarJsonb(0, "LWD 0000", 25.0, 125, 0, false, SegmentType.B);
+
+
+        RentJsonb expiringRent = new RentJsonb(1001, client, vehicle1, LocalDateTime.now());
+        rentJsonbRepository.add(expiringRent);
+
+        assertNotNull(rentJsonbRepository.findById(expiringRent.getEntityId()));
+
+        Thread.sleep(6000);
+
+        assertThrows(NullPointerException.class, () -> rentJsonbRepository.findById(expiringRent.getEntityId()));
     }
 
 }

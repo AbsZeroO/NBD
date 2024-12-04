@@ -15,9 +15,9 @@ public class Rent {
         Id = id;
     }
 
-    private Client client;
-    private Vehicle vehicle;
-    private LocalDateTime beginTime;
+    private final Client client;
+    private final Vehicle vehicle;
+    private final LocalDateTime beginTime;
     private LocalDateTime endTime;
     private double rentCost;
     private boolean isArchived;

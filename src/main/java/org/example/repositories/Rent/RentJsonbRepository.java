@@ -18,6 +18,7 @@ public class RentJsonbRepository extends AbstractRedisRepository implements IRep
     @Override
     public boolean add(RentJsonb entity) {
         getPool().jsonSet(prefix + entity.getEntityId(), getJsonb().toJson(entity));
+        getPool().expire(prefix + entity.getEntityId(), 5);
         return true;
     }
 
