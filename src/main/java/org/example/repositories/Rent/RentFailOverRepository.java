@@ -47,10 +47,16 @@
         @Override
         public List<Rent> findAll() {
             try {
-                return redis.findAll()
+                List<Rent> rentsFromRedis = redis.findAll()
                         .stream()
                         .map(RentMapper::rentFromRedis)
                         .collect(Collectors.toList());
+
+                if (rentsFromRedis.isEmpty()) {
+                    throw new RuntimeException("Redis: No data found");
+                }
+
+                return rentsFromRedis;
             } catch (Exception e) {
                 return mongodb.findAll()
                         .stream()

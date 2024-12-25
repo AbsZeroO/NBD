@@ -12,13 +12,13 @@ import org.example.red.ClientAccountJsonb;
 import org.example.red.RentJsonb;
 import org.example.repositories.Rent.RentJsonbRepository;
 import org.example.repositories.Rent.RentMgdRepository;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.*;
 
 import java.time.LocalDateTime;
 
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 2)
+@Measurement(iterations = 5)
 @State(Scope.Benchmark)
 public class BenchmarkingDataBase {
 
@@ -30,6 +30,10 @@ public class BenchmarkingDataBase {
     @Setup
     public void setup() {
         redisRepository.clearCashe();
+        mongoRepository.getMongodb().getCollection("clients").drop();
+        mongoRepository.getMongodb().getCollection("vehicles").drop();
+        mongoRepository.getMongodb().getCollection("rents").drop();
+
         AddressJsonb address = new AddressJsonb("Łódź", "Radwańska", "40");
         ClientAccountJsonb client = new ClientAccountJsonb(0, "Maciek", "Walaszek",
                 address, ClientType.GOLD, false, 0);
