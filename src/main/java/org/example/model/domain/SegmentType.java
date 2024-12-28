@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.model.domain;
 
 public enum SegmentType {
     A(1.0),
