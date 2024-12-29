@@ -3,16 +3,19 @@ package org.example.model.cassandra;
 import com.datastax.oss.driver.api.mapper.annotations.ClusteringColumn;
 import com.datastax.oss.driver.api.mapper.annotations.CqlName;
 import com.datastax.oss.driver.api.mapper.annotations.Entity;
+import com.datastax.oss.driver.api.mapper.annotations.PartitionKey;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity(defaultKeyspace = "rent_a_vehicle")
-@CqlName("rents")
-public class RentCas extends AbstractEntityCas {
+@CqlName("rent_by_vehicle")
+public class RentCasByVehicle extends AbstractEntityCas {
+    @ClusteringColumn
+    int entityId;
 
     private int clientAccountCas;
-
+    @PartitionKey
     private int vehicleCas;
 
     private LocalDateTime beginTime;
@@ -23,17 +26,17 @@ public class RentCas extends AbstractEntityCas {
 
     private boolean isArchived;
 
-    public RentCas() {
+    public RentCasByVehicle() {
     }
 
-    public RentCas(int entityId,
-                   int clientAccountCas,
-                   int vehicleCas,
-                   LocalDateTime beginTime,
-                   LocalDateTime endTime,
-                   double rentCost,
-                   boolean isArchived) {
-        super(entityId);
+    public RentCasByVehicle(int entityId,
+                            int clientAccountCas,
+                            int vehicleCas,
+                            LocalDateTime beginTime,
+                            LocalDateTime endTime,
+                            double rentCost,
+                            boolean isArchived) {
+        this.entityId = entityId;
         this.clientAccountCas = clientAccountCas;
         this.vehicleCas = vehicleCas;
         this.beginTime = beginTime;
@@ -42,11 +45,21 @@ public class RentCas extends AbstractEntityCas {
         this.isArchived = isArchived;
     }
 
-    public RentCas(int entityId,
-                   int clientAccountCas,
-                   int vehicleCas,
-                   LocalDateTime beginTime) {
-        super(entityId);
+    @Override
+    public int getEntityId() {
+        return entityId;
+    }
+
+    @Override
+    public void setEntityId(int entityId) {
+        this.entityId = entityId;
+    }
+
+    public RentCasByVehicle(int entityId,
+                            int clientAccountCas,
+                            int vehicleCas,
+                            LocalDateTime beginTime) {
+        this.entityId = entityId;
         this.clientAccountCas = clientAccountCas;
         this.vehicleCas = vehicleCas;
         this.beginTime = beginTime != null ? beginTime : LocalDateTime.now();

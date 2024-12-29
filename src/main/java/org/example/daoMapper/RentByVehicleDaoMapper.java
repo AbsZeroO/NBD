@@ -2,12 +2,10 @@ package org.example.daoMapper;
 
 import com.datastax.oss.driver.api.mapper.annotations.DaoFactory;
 import com.datastax.oss.driver.api.mapper.annotations.Mapper;
-import org.example.dao.RentByClientDao;
 import org.example.dao.RentByVehicleDao;
-import org.example.dao.RentDao;
 
 @Mapper
-public interface RentDaoMapper {
+public interface RentByVehicleDaoMapper {
     @DaoFactory
-    RentDao rentDao();
+    RentByVehicleDao rentByVehicleDao();
 }
