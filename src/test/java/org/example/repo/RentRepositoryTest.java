@@ -5,7 +5,6 @@ import com.datastax.oss.driver.api.querybuilder.truncate.Truncate;
 import org.example.model.cassandra.RentCas;
 import org.example.model.cassandra.RentCasByClient;
 import org.example.model.cassandra.RentCasByVehicle;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -68,7 +67,6 @@ class RentRepositoryTest {
 
         repository.add(rent);
 
-        // Update the rent record
         rent.setArchived(true);
         rent.setRentCost(120.0);
         boolean result = repository.update(rent);
@@ -129,7 +127,6 @@ class RentRepositoryTest {
         assertNotNull(rents, "Rent list should not be null");
         assertEquals(2, rents.size(), "Rent list should contain two records");
 
-        // Verify if the rents are present in the list
         assertTrue(rents.stream().anyMatch(r -> r.getEntityId() == 4), "Rent with ID 4 should be present");
         assertTrue(rents.stream().anyMatch(r -> r.getEntityId() == 5), "Rent with ID 5 should be present");
     }
@@ -163,7 +160,6 @@ class RentRepositoryTest {
         assertNotNull(rents, "Rents for client 106 should not be null");
         assertEquals(2, rents.size(), "Client should have two rent records");
 
-        // Verify if the correct rents are returned
         assertTrue(rents.stream().anyMatch(r -> r.getEntityId() == 6), "Rent with ID 6 should be present");
         assertTrue(rents.stream().anyMatch(r -> r.getEntityId() == 7), "Rent with ID 7 should be present");
     }
@@ -197,7 +193,6 @@ class RentRepositoryTest {
         assertNotNull(rents, "Rents for vehicle 209 should not be null");
         assertEquals(2, rents.size(), "Vehicle should have two rent records");
 
-        // Verify if the correct rents are returned
         assertTrue(rents.stream().anyMatch(r -> r.getEntityId() == 8), "Rent with ID 8 should be present");
         assertTrue(rents.stream().anyMatch(r -> r.getEntityId() == 9), "Rent with ID 9 should be present");
     }
