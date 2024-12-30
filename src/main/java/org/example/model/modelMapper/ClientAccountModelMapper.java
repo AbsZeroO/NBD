@@ -6,7 +6,7 @@ import org.example.model.domain.Address;
 import org.example.model.domain.Client;
 
 public class ClientAccountModelMapper {
-    public ClientAccountCas toClientAccountCas(Client client) {
+    public static ClientAccountCas toClientAccountCas(Client client) {
         return new ClientAccountCas(
                 client.getId(),
                 client.getFirstName(),
@@ -22,7 +22,7 @@ public class ClientAccountModelMapper {
         );
     }
 
-    public Client toClientDomain(ClientAccountCas clientAccountCas) {
+    public static Client toClientDomain(ClientAccountCas clientAccountCas) {
         return new Client(
                 clientAccountCas.getEntityId(),
                 clientAccountCas.getFirstName(),

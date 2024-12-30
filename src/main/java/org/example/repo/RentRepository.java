@@ -15,6 +15,7 @@ import org.example.model.cassandra.RentCas;
 import org.example.model.cassandra.RentCasByClient;
 import org.example.model.cassandra.RentCasByVehicle;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -22,7 +23,6 @@ import java.util.stream.StreamSupport;
 public class RentRepository extends AbstractCassandraRepository implements IRepo<RentCas> {
 
     private final RentDao rentDao;
-
     private final RentByClientDao rentByClientDao;
     private final RentByVehicleDao rentByVehicleDao;
     public CqlSession getSession() {
@@ -49,15 +49,20 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
                     entity.getEntityId(),
                     entity.getClientAccountCas(),
                     entity.getVehicleCas(),
-                    entity.getBeginTime()
-
+                    entity.getBeginTime(),
+                    entity.getEndTime(),
+                    entity.getRentCost(),
+                    entity.isArchived()
             );
 
             RentCasByVehicle rentByVehicle = new RentCasByVehicle(
                     entity.getEntityId(),
                     entity.getClientAccountCas(),
                     entity.getVehicleCas(),
-                    entity.getBeginTime()
+                    entity.getBeginTime(),
+                    entity.getEndTime(),
+                    entity.getRentCost(),
+                    entity.isArchived()
             );
 
             rentDao.create(entity);
@@ -92,15 +97,20 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
                     entity.getEntityId(),
                     entity.getClientAccountCas(),
                     entity.getVehicleCas(),
-                    entity.getBeginTime()
-
+                    entity.getBeginTime(),
+                    entity.getEndTime(),
+                    entity.getRentCost(),
+                    entity.isArchived()
             );
 
             RentCasByVehicle rentByVehicle = new RentCasByVehicle(
                     entity.getEntityId(),
                     entity.getClientAccountCas(),
                     entity.getVehicleCas(),
-                    entity.getBeginTime()
+                    entity.getBeginTime(),
+                    entity.getEndTime(),
+                    entity.getRentCost(),
+                    entity.isArchived()
             );
 
             rentByClientDao.update(rentByClient);
@@ -122,7 +132,10 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
                     rentCas.getEntityId(),
                     rentCas.getClientAccountCas(),
                     rentCas.getVehicleCas(),
-                    rentCas.getBeginTime()
+                    rentCas.getBeginTime(),
+                    rentCas.getEndTime(),
+                    rentCas.getRentCost(),
+                    rentCas.isArchived()
 
             );
 
@@ -130,7 +143,10 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
                     rentCas.getEntityId(),
                     rentCas.getClientAccountCas(),
                     rentCas.getVehicleCas(),
-                    rentCas.getBeginTime()
+                    rentCas.getBeginTime(),
+                    rentCas.getEndTime(),
+                    rentCas.getRentCost(),
+                    rentCas.isArchived()
             );
 
 
@@ -145,15 +161,29 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
     }
 
     // Wyszukiwanie wynajmów po kliencie
-    public List<RentCasByClient> findByClient(int clientAccountCas) {
-        PagingIterable<RentCasByClient> iterable = rentByClientDao.findByClient(clientAccountCas);
-        return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
+    public List<RentCasByClient> findByClient(int clientId) {
+        return rentByClientDao.findByClient(clientId).all();
+    }
+
+    public List<RentCasByClient> findCurrentRentsByClient(int clientId) {
+        return rentByClientDao.findCurrentRentsByClient(clientId);
+    }
+
+    public List<RentCasByClient> findArchivedRentsByClient(int clientId) {
+        return rentByClientDao.findArchivedRentsByClient(clientId);
     }
 
     // Wyszukiwanie wynajmów po pojeździe
     public List<RentCasByVehicle> findByVehicle(int vehicleCas) {
-        PagingIterable<RentCasByVehicle> iterable = rentByVehicleDao.findByVehicle(vehicleCas);
-        return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
+        return rentByVehicleDao.findByVehicle(vehicleCas).all();
+    }
+
+    public List<RentCasByVehicle> findCurrentRentsByVehicle(int vehicleId) {
+        return rentByVehicleDao.findCurrentRentsByVehicle(vehicleId);
+    }
+
+    public List<RentCasByVehicle> findArchivedRentsByVehicle(int vehicleId) {
+        return rentByVehicleDao.findArchivedRentsByVehicle(vehicleId);
     }
 
     private void createTable() {
@@ -178,10 +208,10 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
                 SchemaBuilder.createTable("rent_a_vehicle", "rent_by_client")
                         .ifNotExists()
                         .withPartitionKey(RentIDs.CLIENT_ACCOUNT_CAS, DataTypes.INT)
+                        .withClusteringColumn(RentIDs.END_TIME, DataTypes.TIMESTAMP)
                         .withClusteringColumn(RentIDs.RENT_ID, DataTypes.INT)
                         .withColumn(RentIDs.BEGIN_TIME, DataTypes.TIMESTAMP)
                         .withColumn(RentIDs.VEHICLE_CAS, DataTypes.INT)
-                        .withColumn(RentIDs.END_TIME, DataTypes.TIMESTAMP)
                         .withColumn(RentIDs.RENT_COST, DataTypes.DOUBLE)
                         .withColumn(RentIDs.ARCHIVED, DataTypes.BOOLEAN)
                         .build();
@@ -195,14 +225,21 @@ public class RentRepository extends AbstractCassandraRepository implements IRepo
                 SchemaBuilder.createTable("rent_a_vehicle", "rent_by_vehicle")
                         .ifNotExists()
                         .withPartitionKey(RentIDs.VEHICLE_CAS, DataTypes.INT)
+                        .withClusteringColumn(RentIDs.END_TIME, DataTypes.TIMESTAMP)
                         .withClusteringColumn(RentIDs.RENT_ID, DataTypes.INT)
                         .withColumn(RentIDs.BEGIN_TIME, DataTypes.TIMESTAMP)
                         .withColumn(RentIDs.CLIENT_ACCOUNT_CAS, DataTypes.INT)
-                        .withColumn(RentIDs.END_TIME, DataTypes.TIMESTAMP)
                         .withColumn(RentIDs.RENT_COST, DataTypes.DOUBLE)
                         .withColumn(RentIDs.ARCHIVED, DataTypes.BOOLEAN)
                         .build();
-
         session.execute(createRentByVehicleTable);
+
+        SimpleStatement createIndex = SchemaBuilder.createIndex()
+                .ifNotExists()
+                .onTable("rent_by_vehicle")
+                .andColumn(RentIDs.ARCHIVED)
+                .build();
+
+        session.execute(createIndex);
     }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity(defaultKeyspace = "rent_a_vehicle")
 @CqlName("rent_by_vehicle")
 public class RentCasByVehicle extends AbstractEntityCas {
-    @ClusteringColumn
+    @ClusteringColumn(1)
     int entityId;
 
     private int clientAccountCas;
@@ -19,10 +19,11 @@ public class RentCasByVehicle extends AbstractEntityCas {
     private int vehicleCas;
 
     private LocalDateTime beginTime;
-
+    @ClusteringColumn(0)
     private LocalDateTime endTime;
 
     private double rentCost;
+
 
     private boolean isArchived;
 
@@ -43,6 +44,7 @@ public class RentCasByVehicle extends AbstractEntityCas {
         this.endTime = endTime;
         this.rentCost = rentCost;
         this.isArchived = isArchived;
+        this.endTime = (endTime != null) ? endTime : LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
     }
 
     @Override
@@ -72,7 +74,7 @@ public class RentCasByVehicle extends AbstractEntityCas {
             this.beginTime = beginTime;
         }
 
-        this.endTime = null;
+        this.endTime = (endTime != null) ? endTime : LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
 
 
     }

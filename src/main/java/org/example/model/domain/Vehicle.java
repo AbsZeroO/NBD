@@ -10,16 +10,16 @@ public class Vehicle {
 
     private int engineDisplacement;
 
-    private int rented;
+    private boolean rented;
 
     private boolean archived;
 
-    public Vehicle(int Id, String plateNumber, double basePrice, int engineDisplacement, int rented, boolean archived) {
+    public Vehicle(int Id, String plateNumber, double basePrice, int engineDisplacement, boolean rented, boolean archived) {
         this.Id = Id;
         this.plateNumber = plateNumber;
         this.engineDisplacement =  engineDisplacement;
         this.basePrice = basePrice;
-        this.rented = 0;
+        this.rented = false;
         this.archived = false;
     }
 
@@ -48,7 +48,7 @@ public class Vehicle {
         return basePrice;
     }
 
-    public int isRented() {
+    public boolean isRented() {
         return rented;
     }
 
@@ -70,7 +70,7 @@ public class Vehicle {
         this.basePrice = basePrice;
     }
 
-    public void setRented(int rented) {
+    public void setRented(boolean rented) {
         this.rented = rented;
     }
 

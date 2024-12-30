@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
 public class RentCasByClient {
     @PartitionKey
     private int clientAccountCas;
-    @ClusteringColumn
+    @ClusteringColumn(1)
     int entityId;
 
     private int vehicleCas;
 
     private LocalDateTime beginTime;
 
+    @ClusteringColumn(0)
     private LocalDateTime endTime;
 
     private double rentCost;
@@ -48,9 +49,9 @@ public class RentCasByClient {
         this.clientAccountCas = clientAccountCas;
         this.vehicleCas = vehicleCas;
         this.beginTime = beginTime;
-        this.endTime = endTime;
         this.rentCost = rentCost;
         this.isArchived = isArchived;
+        this.endTime = (endTime != null) ? endTime : LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
     }
 
     public RentCasByClient(int entityId,
@@ -70,7 +71,7 @@ public class RentCasByClient {
             this.beginTime = beginTime;
         }
 
-        this.endTime = null;
+        this.endTime = (endTime != null) ? endTime : LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
 
 
     }

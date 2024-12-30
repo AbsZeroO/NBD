@@ -40,6 +40,8 @@ public class RentCas extends AbstractEntityCas {
         this.endTime = endTime;
         this.rentCost = rentCost;
         this.isArchived = isArchived;
+        this.endTime = endTime;
+        this.endTime = (endTime != null) ? endTime : LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
     }
 
     public RentCas(int entityId,
@@ -59,8 +61,7 @@ public class RentCas extends AbstractEntityCas {
             this.beginTime = beginTime;
         }
 
-        this.endTime = null;
-
+        this.endTime = (endTime != null) ? endTime : LocalDateTime.of(1970, 1, 1, 0, 0, 0, 0);
 
     }
 

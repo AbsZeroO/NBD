@@ -70,6 +70,12 @@ public class VehicleRepository extends AbstractCassandraRepository implements IR
         }
     }
 
+    public void setRent(int id, boolean rented) {
+        VehicleCas vehicleCas = findById(id);
+        vehicleCas.setRented(rented);
+        this.update(vehicleCas);
+    }
+
     private void createTable() {
         SimpleStatement createTable =
                 SchemaBuilder.createTable(RentIDs.TABLE_NAME_NAMESPACE, VehicleIDs.TABLE_NAME)

@@ -125,4 +125,28 @@ class ClientAccountRepositoryTest {
         assertTrue(clients.size() >= 2, "Client list should contain at least two clients");
     }
 
+    @Test
+    void findById() {
+        AddressCas addressCas = new AddressCas("San Francisco", "Market Street", "100");
+        ClientAccountCas client1 = new ClientAccountCas(
+                4,
+                "Eve",
+                "Black",
+                addressCas,
+                ClientType.GOLD,
+                false,
+                0
+        );
+
+        repository.add(client1);
+
+        ClientAccountCas fromCas = repository.findById(client1.getEntityId());
+
+        assertEquals(addressCas.getCity(), fromCas.getAddressCas().getCity());
+        assertEquals(addressCas.getStreet(), fromCas.getAddressCas().getStreet());
+        assertEquals(addressCas.getHouseNumber(), fromCas.getAddressCas().getHouseNumber());
+
+
+    }
+
 }

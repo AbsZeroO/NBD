@@ -5,8 +5,8 @@ import com.datastax.oss.driver.api.core.CqlIdentifier;
 public class RentIDs {
     public static final CqlIdentifier TABLE_NAME_NAMESPACE = CqlIdentifier.fromCql("rent_a_vehicle");
     public static final CqlIdentifier TABLE_NAME = CqlIdentifier.fromCql("rents");
-    public static final CqlIdentifier TABLE_NAME_BY_CLIENTS = CqlIdentifier.fromCql("rents_by_clients");
-    public static final CqlIdentifier TABLE_NAME_BY_VEHICLES = CqlIdentifier.fromCql("rents_by_vehicles");
+    public static final CqlIdentifier TABLE_NAME_BY_CLIENTS = CqlIdentifier.fromCql("rent_by_client");
+    public static final CqlIdentifier TABLE_NAME_BY_VEHICLES = CqlIdentifier.fromCql("rent_by_vehicle");
     public static final CqlIdentifier RENT_ID = CqlIdentifier.fromCql("entity_id");
     public static final CqlIdentifier CLIENT_ACCOUNT_CAS = CqlIdentifier.fromCql("client_account_cas");
     public static final CqlIdentifier VEHICLE_CAS = CqlIdentifier.fromCql("vehicle_cas");

@@ -16,4 +16,14 @@ public enum SegmentType {
     public double getMultiplier() {
         return multiplier;
     }
+    public static SegmentType fromString(String segmentType) {
+        return switch (segmentType) {
+            case "A" -> A;
+            case "B" -> B;
+            case "C" -> C;
+            case "D" -> D;
+            case "E" -> E;
+            default -> throw new IllegalArgumentException("Unknown SegmentType: " + segmentType);
+        };
+    }
 }
