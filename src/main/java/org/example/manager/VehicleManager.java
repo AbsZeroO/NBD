@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class VehicleManager {
-    private static final VehicleRepository repository = new VehicleRepository();
+    private final VehicleRepository repository = new VehicleRepository();
 
-    public void add(Vehicle vehicle) {
-        repository.add(VehicleModelMapper.toVehicleCas(vehicle));
+    public boolean add(Vehicle vehicle) {
+        return repository.add(VehicleModelMapper.toVehicleCas(vehicle));
     }
 
     public Vehicle findById(int id) {
@@ -28,13 +28,15 @@ public class VehicleManager {
                 .collect(Collectors.toList());
     }
 
-    public void update(Vehicle vehicle) {
-        repository.update(VehicleModelMapper.toVehicleCas(vehicle));
+    public boolean update(Vehicle vehicle) {
+        return repository.update(VehicleModelMapper.toVehicleCas(vehicle));
     }
 
-    public void delete(Vehicle vehicle) {
-        repository.delete(VehicleModelMapper.toVehicleCas(vehicle));
+    public boolean delete(Vehicle vehicle) {
+        return repository.delete(VehicleModelMapper.toVehicleCas(vehicle));
     }
 
-
+    public VehicleRepository getRepository() {
+        return repository;
+    }
 }

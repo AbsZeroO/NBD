@@ -3,15 +3,35 @@ package org.example.manager;
 import org.example.model.domain.Rent;
 import org.example.model.modelMapper.RentModelMapper;
 import org.example.repo.RentRepository;
+import org.example.repo.VehicleRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RentManager {
-    private static final RentRepository repository = new RentRepository();
+    private final RentRepository repository = new RentRepository();
+    private final VehicleRepository vehicleRepo = new VehicleRepository();
 
-    public void add(Rent rent) {
+    public void rejntVehicle(Rent rent) throws Exception {
+        if (vehicleRepo.findById(rent.getVehicle().getId()).isRented()) {
+            throw new Exception("Ten pojazd jest juz wypozyczony!");
+        }
+
         repository.add(RentModelMapper.toRentCas(rent));
+        vehicleRepo.setRent(rent.getVehicle().getId(), true);
+    }
+
+    public void returnVehicle(int id, LocalDateTime endTime) {
+        Rent rent = findRentById(id);
+
+        if (rent.getBeginTime().isBefore(endTime)) {
+            rent.endRent(endTime);
+            update(rent);
+            vehicleRepo.setRent(rent.getVehicle().getId(), false);
+        }
+
+
     }
 
     public Rent findRentById(int rentId) {
@@ -73,11 +93,19 @@ public class RentManager {
                 .collect(Collectors.toList());
     }
 
-    public void update(Rent rent) {
-        repository.update(RentModelMapper.toRentCas(rent));
+    public boolean update(Rent rent) {
+        return repository.update(RentModelMapper.toRentCas(rent));
     }
 
-    public void delete(Rent rent) {
-        repository.delete(RentModelMapper.toRentCas(rent));
+    public boolean delete(Rent rent) {
+        return repository.delete(RentModelMapper.toRentCas(rent));
+    }
+
+    public VehicleRepository getVehicleRepo() {
+        return vehicleRepo;
+    }
+
+    public RentRepository getRepository() {
+        return repository;
     }
 }

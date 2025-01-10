@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 public class ClientManager {
     private final ClientAccountRepository repository = new ClientAccountRepository();
 
-    public void add(Client client) {
-        repository.add(ClientAccountModelMapper.toClientAccountCas(client));
+    public boolean add(Client client) {
+        return repository.add(ClientAccountModelMapper.toClientAccountCas(client));
     }
 
     public Client findById(int id) {
@@ -25,12 +25,15 @@ public class ClientManager {
                 .collect(Collectors.toList());
     }
 
-    public void update(Client client) {
-        repository.update(ClientAccountModelMapper.toClientAccountCas(client));
+    public boolean update(Client client) {
+        return repository.update(ClientAccountModelMapper.toClientAccountCas(client));
     }
 
-    public void delete(Client client) {
-        repository.delete(ClientAccountModelMapper.toClientAccountCas(client));
+    public boolean delete(Client client) {
+        return repository.delete(ClientAccountModelMapper.toClientAccountCas(client));
     }
 
+    public ClientAccountRepository getRepository() {
+        return repository;
+    }
 }
