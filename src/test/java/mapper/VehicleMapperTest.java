@@ -5,6 +5,10 @@ import org.example.mappers.VehicleMapper;
 import org.example.mgd.BicycleMgd;
 import org.example.mgd.CarMgd;
 import org.example.mgd.VehicleMgd;
+import org.example.model.Bicycle;
+import org.example.model.Car;
+import org.example.model.SegmentType;
+import org.example.model.Vehicle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

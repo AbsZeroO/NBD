@@ -86,6 +86,16 @@ services:
       - kafkanet
 
 
+  redis-stack:
+    image: redis/redis-stack:latest
+    volumes:
+      - redis-stack-data:/bitnami/redis/data
+    ports:
+      - "8001:8001"
+      - "6379:6379"
+    networks:
+      - redisnet
+
   mongo_1:
     build: ../../CarRental — kopia/Docker
     image: mongocustom:8.0.1
@@ -174,6 +184,8 @@ services:
       '
 
 volumes:
+  redis-stack-data:
+    driver: local
   kafka1_data:
     driver: local
   kafka2_data:
@@ -182,6 +194,7 @@ volumes:
     driver: local
 
 networks:
+  redisnet: {}
   mongonet: {}
   kafkanet:
     driver: bridge

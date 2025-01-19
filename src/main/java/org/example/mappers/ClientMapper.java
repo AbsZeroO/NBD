@@ -3,6 +3,9 @@ package org.example.mappers;
 import org.bson.Document;
 import org.example.mgd.AddressMgd;
 import org.example.mgd.ClientAccountMgd;
+import org.example.model.Address;
+import org.example.model.Client;
+import org.example.model.ClientType;
 import org.example.red.AddressJsonb;
 import org.example.red.ClientAccountJsonb;
 

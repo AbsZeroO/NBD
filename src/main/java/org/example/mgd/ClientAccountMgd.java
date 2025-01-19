@@ -2,6 +2,7 @@ package org.example.mgd;
 
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.example.model.ClientType;
 
 public class ClientAccountMgd extends AbstractEntityMgd {
     @BsonProperty("firstName")

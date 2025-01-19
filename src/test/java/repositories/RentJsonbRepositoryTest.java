@@ -1,5 +1,7 @@
 package repositories;
 
+import org.example.model.ClientType;
+import org.example.model.SegmentType;
 import org.example.red.*;
 import org.example.repositories.Rent.RentJsonbRepository;
 import org.junit.jupiter.api.AfterEach;

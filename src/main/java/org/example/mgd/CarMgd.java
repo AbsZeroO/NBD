@@ -3,6 +3,7 @@ package org.example.mgd;
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.example.model.SegmentType;
 
 @BsonDiscriminator(key = "_type", value = "car")
 public class CarMgd extends VehicleMgd {

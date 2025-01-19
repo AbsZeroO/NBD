@@ -2,6 +2,7 @@ package org.example.red;
 
 import jakarta.json.bind.annotation.JsonbCreator;
 import jakarta.json.bind.annotation.JsonbProperty;
+import org.example.model.ClientType;
 
 public class ClientAccountJsonb extends AbstractEntityJsonb {
     @JsonbProperty("firstName")

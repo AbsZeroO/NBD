@@ -110,8 +110,8 @@ public class RentManagerTest {
 
         rentManager.rentVehicle(client, vehicle);
         LocalDateTime returnTime = LocalDateTime.now().plusDays(5);
-        // 9 ponieważ tworzy po kolei gdzieś tam w repo lub menadzeze
-        Vehicle returnedVehicle = rentManager.returnVehicle(9, returnTime);
+        // 11 ponieważ tworzy po kolei gdzieś tam w repo lub menadzeze
+        Vehicle returnedVehicle = rentManager.returnVehicle(11, returnTime);
 
         assertEquals(0, returnedVehicle.isRented(), "Vehicle should be marked as not rented.");
     }

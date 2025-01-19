@@ -2,6 +2,7 @@ package org.example.managers;
 
 import org.example.exceptions.VehicleException;
 import org.example.mappers.VehicleMapper;
+import org.example.model.Vehicle;
 import org.example.repositories.VehicleMgdRepository;
 
 

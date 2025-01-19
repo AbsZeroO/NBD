@@ -1,6 +1,8 @@
 package repositories;
 
 import org.example.mgd.*;
+import org.example.model.ClientType;
+import org.example.model.SegmentType;
 import org.example.repositories.Rent.RentMgdRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

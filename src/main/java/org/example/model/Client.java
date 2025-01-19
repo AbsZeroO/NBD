@@ -3,7 +3,6 @@ package org.example.model;
 import org.apache.avro.Schema;
 import org.apache.avro.specific.SpecificRecordBase;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 

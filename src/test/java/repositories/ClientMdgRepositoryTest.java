@@ -2,6 +2,7 @@ package repositories;
 
 import org.example.mgd.AddressMgd;
 import org.example.mgd.ClientAccountMgd;
+import org.example.model.ClientType;
 import org.example.repositories.ClientMgdRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
