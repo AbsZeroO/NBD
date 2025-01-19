@@ -2,6 +2,7 @@ package org.example.manager;
 
 import org.example.model.domain.Rent;
 import org.example.model.modelMapper.RentModelMapper;
+import org.example.repo.ClientAccountRepository;
 import org.example.repo.RentRepository;
 import org.example.repo.VehicleRepository;
 
@@ -12,10 +13,13 @@ import java.util.stream.Collectors;
 public class RentManager {
     private final RentRepository repository = new RentRepository();
     private final VehicleRepository vehicleRepo = new VehicleRepository();
+    private final ClientAccountRepository clientRepo = new ClientAccountRepository();
 
     public void rejntVehicle(Rent rent) throws Exception {
         if (vehicleRepo.findById(rent.getVehicle().getId()).isRented()) {
             throw new Exception("Ten pojazd jest juz wypozyczony!");
+        } else if (repository.findByClient(rent.getClient().getId()).size() > 5) {
+            throw new Exception("Za dużo wypozyczonych");
         }
 
         repository.add(RentModelMapper.toRentCas(rent));
