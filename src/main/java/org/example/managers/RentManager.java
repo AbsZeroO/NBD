@@ -3,12 +3,7 @@ package org.example.managers;
 import com.mongodb.MongoWriteException;
 import org.example.exceptions.RentException;
 import org.example.mappers.ClientMapper;
-import org.example.mappers.RentMapper;
 import org.example.mappers.VehicleMapper;
-import org.example.mgd.RentMgd;
-import org.example.model.Client;
-import org.example.model.Rent;
-import org.example.model.Vehicle;
 import org.example.repositories.ClientMgdRepository;
 import org.example.repositories.Rent.RentFailOverRepository;
 import org.example.repositories.Rent.RentJsonbRepository;
@@ -16,7 +11,6 @@ import org.example.repositories.Rent.RentMgdRepository;
 import org.example.repositories.VehicleMgdRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 

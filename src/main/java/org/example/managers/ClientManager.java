@@ -2,7 +2,6 @@ package org.example.managers;
 
 import org.example.exceptions.ClientException;
 import org.example.mappers.ClientMapper;
-import org.example.model.Client;
 import org.example.repositories.ClientMgdRepository;
 
 

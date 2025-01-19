@@ -7,7 +7,6 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.example.mappers.ClientMapper;
 import org.example.mgd.ClientAccountMgd;
-import org.example.model.Client;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
     package org.example.repositories.Rent;
 
     import org.example.mappers.RentMapper;
-    import org.example.model.Rent;
     import org.example.repositories.AbstractRedisRepository;
     import org.example.repositories.IRepo;
 

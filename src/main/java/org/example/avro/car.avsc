@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "Car",
+  "namespace": "org.example.avro",
+  "fields": [
+    {
+      "name": "vehicle",
+      "type": "Vehicle"
+    },
+    {
+      "name": "segmentType",
+      "type": {
+        "type": "enum",
+        "name": "SegmentType",
+        "symbols": ["A", "B", "C", "D", "E"]
+      }
+    }
+  ]
+}

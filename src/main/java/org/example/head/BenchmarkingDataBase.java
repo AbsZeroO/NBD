@@ -4,8 +4,6 @@ import org.example.mgd.AddressMgd;
 import org.example.mgd.CarMgd;
 import org.example.mgd.ClientAccountMgd;
 import org.example.mgd.RentMgd;
-import org.example.model.ClientType;
-import org.example.model.SegmentType;
 import org.example.red.AddressJsonb;
 import org.example.red.CarJsonb;
 import org.example.red.ClientAccountJsonb;

@@ -1,7 +1,12 @@
 package org.example.model;
 
 
-public class Vehicle {
+import org.apache.avro.Schema;
+import org.apache.avro.specific.SpecificRecordBase;
+
+import java.io.IOException;
+
+public class Vehicle extends SpecificRecordBase {
     private int Id;
 
     private String plateNumber;
@@ -21,6 +26,9 @@ public class Vehicle {
         this.basePrice = basePrice;
         this.rented = 0;
         this.archived = false;
+    }
+
+    public Vehicle() {
     }
 
     public String getVehicleInfo() {
@@ -77,5 +85,41 @@ public class Vehicle {
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
+
+    @Override
+    public Schema getSchema() {
+        try {
+            return new Schema.Parser().parse(getClass().getResourceAsStream("src/main/java/org/example/avro/vehicle.avsc"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Object get(int field) {
+        return switch (field) {
+            case 0 -> Id;
+            case 1 -> plateNumber;
+            case 2 -> basePrice;
+            case 3 -> engineDisplacement;
+            case 4 -> rented;
+            case 5 -> archived;
+            default -> throw new IllegalArgumentException("Unknown field index: " + field);
+        };
+    }
+
+    @Override
+    public void put(int field, Object value) {
+        switch (field) {
+            case 0 -> Id = (int) value;
+            case 1 -> plateNumber = (String) value;
+            case 2 -> basePrice = (double) value;
+            case 3 -> engineDisplacement = (int) value;
+            case 4 -> rented = (int) value;
+            case 5 -> archived = (boolean) value;
+            default -> throw new IllegalArgumentException("Unknown field index: " + field);
+        }
+    }
+
 
 }

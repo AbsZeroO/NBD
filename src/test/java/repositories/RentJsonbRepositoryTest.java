@@ -1,9 +1,5 @@
 package repositories;
 
-import jakarta.json.bind.Jsonb;
-import jakarta.json.bind.JsonbBuilder;
-import org.example.model.ClientType;
-import org.example.model.SegmentType;
 import org.example.red.*;
 import org.example.repositories.Rent.RentJsonbRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -11,8 +7,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -4,7 +4,6 @@ import org.bson.Document;
 import org.example.mgd.ClientAccountMgd;
 import org.example.mgd.RentMgd;
 import org.example.mgd.VehicleMgd;
-import org.example.model.Rent;
 import org.example.red.RentJsonb;
 
 import java.time.LocalDateTime;
