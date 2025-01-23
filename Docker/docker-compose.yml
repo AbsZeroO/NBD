@@ -163,7 +163,7 @@ services:
     container_name: mongodb4
     hostname: mongodb4
     networks:
-      - mongonet
+      - mongonet2
     ports:
       - "27020:27020"
     environment:
@@ -181,7 +181,7 @@ services:
     container_name: mongodb5
     hostname: mongodb5
     networks:
-      - mongonet
+      - mongonet3
     ports:
       - "27021:27021"
     environment:
@@ -234,6 +234,8 @@ volumes:
 networks:
   redisnet: {}
   mongonet: {}
+  mongonet2: {}
+  mongonet3: {}
   kafkanet:
     driver: bridge
     ipam:

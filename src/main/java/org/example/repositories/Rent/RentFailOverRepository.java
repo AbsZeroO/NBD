@@ -12,6 +12,7 @@
 
         private final RentJsonbRepository redis;
         private final RentMgdRepository mongodb;
+        private final RentProducent rentProducent = new RentProducent();
 
         public RentFailOverRepository(RentJsonbRepository redis, RentMgdRepository mongodb) {
             this.redis = redis;
@@ -22,6 +23,7 @@
         @Override
         public boolean add(Rent entity) {
             try {
+                rentProducent.sendRent(entity);
                 return redis.add(RentMapper.rentToRedis(entity))
                         && mongodb.add(RentMapper.rentToMongo(entity));
 
