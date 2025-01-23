@@ -1,8 +1,6 @@
 package org.example.model;
 
 
-import org.apache.avro.Schema;
-
 import java.io.IOException;
 
 public class Car extends Vehicle {
@@ -30,12 +28,4 @@ public class Car extends Vehicle {
         return super.getBasePrice() * segmentType.getMultiplier();
     }
 
-    @Override
-    public Schema getSchema() {
-        try {
-            return new Schema.Parser().parse(getClass().getResourceAsStream("src/main/java/org/example/avro/car.avsc"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

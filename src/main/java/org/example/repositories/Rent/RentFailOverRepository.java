@@ -16,6 +16,7 @@
         public RentFailOverRepository(RentJsonbRepository redis, RentMgdRepository mongodb) {
             this.redis = redis;
             this.mongodb = mongodb;
+
         }
 
         @Override

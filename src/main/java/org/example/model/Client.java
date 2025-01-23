@@ -1,12 +1,8 @@
 package org.example.model;
 
-import org.apache.avro.Schema;
-import org.apache.avro.specific.SpecificRecordBase;
-
-import java.io.IOException;
 import java.io.Serializable;
 
-public class Client extends SpecificRecordBase implements Serializable {
+public class Client implements Serializable {
     private int id;
 
     private String firstName;
@@ -109,40 +105,4 @@ public class Client extends SpecificRecordBase implements Serializable {
         this.archived = value;
     }
 
-    @Override
-    public Schema getSchema() {
-        try {
-            return new Schema.Parser().parse(getClass().getResourceAsStream("src/main/java/org/example/avro/client.avsc"));
-        } catch (IOException e) {
-            throw new RuntimeException("Błąd ładowania schematu Avro z pliku.", e);
-        }
-    }
-
-    @Override
-    public Object get(int field) {
-        return switch (field) {
-            case 0 -> id;
-            case 1 -> firstName;
-            case 2 -> lastName;
-            case 3 -> address;
-            case 4 -> clientType;
-            case 5 -> archived;
-            case 6 -> rents;
-            default -> throw new IllegalArgumentException("Unknown field: " + field);
-        };
-    }
-
-    @Override
-    public void put(int field, Object value) {
-        switch (field) {
-            case 0 -> id = (int) value;
-            case 1 -> firstName = (String) value;
-            case 2 -> lastName = (String) value;
-            case 3 -> address = (Address) value;
-            case 4 -> clientType = (ClientType) value;
-            case 5 -> archived = (boolean) value;
-            case 6 -> rents = (int) value;
-            default -> throw new IllegalArgumentException("Unknown field: " + field);
-        }
-    }
 }

@@ -1,11 +1,9 @@
 package org.example.model;
 
-import org.apache.avro.Schema;
-import org.apache.avro.specific.SpecificRecordBase;
 
 import java.io.IOException;
 
-public class Address extends SpecificRecordBase {
+public class Address {
 
     private String city;
     private String street;
@@ -56,33 +54,5 @@ public class Address extends SpecificRecordBase {
         }
     }
 
-    @Override
-    public Schema getSchema() {
-        try {
-            return new Schema.Parser().parse(getClass().getResourceAsStream("src/main/java/org/example/avro/address.avsc"));
-        } catch (IOException e) {
-            throw new RuntimeException("Błąd ładowania schematu Avro z pliku.", e);
-        }
-    }
-
-    @Override
-    public Object get(int field) {
-        return switch (field) {
-            case 0 -> street;
-            case 1 -> city;
-            case 2 -> houseNumber;
-            default -> throw new IllegalArgumentException("Unknown field: " + field);
-        };
-    }
-
-    @Override
-    public void put(int field, Object value) {
-        switch (field) {
-            case 0 -> street = (String) value;
-            case 1 -> city = (String) value;
-            case 2 -> houseNumber = (String) value;
-            default -> throw new IllegalArgumentException("Unknown field: " + field);
-        }
-    }
 
 }

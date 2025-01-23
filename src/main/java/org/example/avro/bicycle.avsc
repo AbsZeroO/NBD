@@ -1,8 +1,0 @@
-{
-  "type": "record",
-  "name": "Bicycle",
-  "namespace": "org.example.avro",
-  "fields": [
-    { "name": "vehicle", "type": "Vehicle" }
-  ]
-}

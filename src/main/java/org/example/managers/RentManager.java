@@ -27,6 +27,10 @@ public class RentManager {
         this.rentRepo = new RentFailOverRepository(new RentJsonbRepository(), new RentMgdRepository());
     }
 
+    public void addRent(Rent rent) {
+        rentRepo.add(rent);
+    }
+
     public void rentVehicle(Client client, Vehicle vehicle) {
         int id = idGenerator.getAndIncrement();
         Rent rent = new Rent(id, client, vehicle, LocalDateTime.now());

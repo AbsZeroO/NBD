@@ -1,16 +1,11 @@
 package org.example.model;
 
-
-import org.apache.avro.Schema;
-import org.apache.avro.specific.SpecificRecordBase;
-
-import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-public class Rent extends SpecificRecordBase {
+public class Rent {
     private int Id;
 
     public Rent() {
@@ -138,43 +133,6 @@ public class Rent extends SpecificRecordBase {
         isArchived = archived;
     }
 
-    // Avro Schema
-    @Override
-    public Schema getSchema() {
-        try {
-            return new Schema.Parser().parse(getClass().getResourceAsStream("src/main/java/org/example/avro/rent.avsc"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    @Override
-    public Object get(int field) {
-        return switch (field) {
-            case 0 -> Id;
-            case 1 -> client;
-            case 2 -> vehicle;
-            case 3 -> beginTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-            case 4 -> endTime != null ? endTime.toInstant(ZoneOffset.UTC).toEpochMilli() : null;
-            case 5 -> rentCost;
-            case 6 -> isArchived;
-            default -> throw new IllegalArgumentException("Unknown field: " + field);
-        };
-    }
-
-    // Avro put
-    @Override
-    public void put(int field, Object value) {
-        switch (field) {
-            case 0 -> Id = (int) value;
-            case 1 -> client = (Client) value;
-            case 2 -> vehicle = (Vehicle) value;
-            case 3 -> beginTime = LocalDateTime.ofInstant(Instant.ofEpochMilli((long) value), ZoneOffset.UTC);
-            case 4 -> endTime = value != null ? LocalDateTime.ofInstant(Instant.ofEpochMilli((long) value), ZoneOffset.UTC) : null;
-            case 5 -> rentCost = (double) value;
-            case 6 -> isArchived = (boolean) value;
-            default -> throw new IllegalArgumentException("Unknown field: " + field);
-        }
-    }
 
 }

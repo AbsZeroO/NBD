@@ -23,7 +23,7 @@ services:
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka1:9193, 2@kafka2:9293, 3@kafka3:9393
       - KAFKA_KRAFT_CLUSTER_ID=ZGI1NTk0YmY3NzVjNDk5MD
       - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_OPTS=-Dlog4j.rootLogger=DEBUG
+      - KAFKA_OPTS=-Dlog4j.rootLogger=ERROR
     volumes:
       - kafka1_data:/bitnami/kafka
     networks:
@@ -85,7 +85,6 @@ services:
     networks:
       - kafkanet
 
-
   redis-stack:
     image: redis/redis-stack:latest
     volumes:
@@ -109,6 +108,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=adminpassword
       - MONGO_INITDB_DATABASE=rentalcar
+      - MONGO_LOG_LEVEL=error
     command: --config /etc/mongod.conf
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
@@ -128,6 +128,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+      - MONGO_LOG_LEVEL=error
     command: >
       --config /etc/mongod.conf --port 27018
     healthcheck:
@@ -148,10 +149,47 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+      - MONGO_LOG_LEVEL=error
     command: >
       --config /etc/mongod.conf --port 27019
     healthcheck:
       test: ["CMD", "mongosh", "--port", "27019", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
+  mongo_4:
+    image: mongo:6.0
+    container_name: mongodb4
+    hostname: mongodb4
+    networks:
+      - mongonet
+    ports:
+      - "27020:27020"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+    command: --port 27020
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "27020", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
+  mongo_5:
+    image: mongo:6.0
+    container_name: mongodb5
+    hostname: mongodb5
+    networks:
+      - mongonet
+    ports:
+      - "27021:27021"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpassword
+    command: --port 27021
+    healthcheck:
+      test: ["CMD", "mongosh", "--port", "27021", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 2s
       retries: 5
