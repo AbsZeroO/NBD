@@ -10,6 +10,8 @@
 
 -  Kafka – Distributed event streaming platform
 
+All projects were developed using Java, with additional tools and libraries for database interaction, testing, and performance monitoring.
+
 # 🎯 Goal
 
 - The main objective of this project is to gain hands-on experience with popular NoSQL technologies by:
