@@ -1,27 +1,27 @@
-# 🧠 NoSQL Databases – University Learning Projects
+🧠 NoSQL Databases – University Learning Projects
 
-- This repository contains a collection of educational projects designed to explore and understand the functionality, differences, and use cases of various NoSQL databases:
+This repository features a collection of educational projects aimed at exploring the functionality, differences, and practical use cases of various NoSQL databases. Each database is available in a separate branch:
 
-- MongoDB – Document-oriented database
+- MongoDB – A document-oriented database ideal for flexible and scalable data storage
 
-- Cassandra – Wide-column store for high availability and scalability
+- Cassandra – A wide-column store designed for high availability and horizontal scalability
 
-- Redis – In-memory key-value store, perfect for caching and fast operations
+- Redis – An in-memory key-value store, excellent for caching and real-time operations
 
--  Kafka – Distributed event streaming platform
+- Kafka – A distributed event streaming platform for building real-time data pipelines
 
-All projects were developed using Java, with additional tools and libraries for database interaction, testing, and performance monitoring.
+All projects are implemented in Java, using additional libraries and tools for database interaction, testing, and performance monitoring.
 
-# 🎯 Goal
+🎯 Project Goals
 
-- The main objective of this project is to gain hands-on experience with popular NoSQL technologies by:
+- The primary goal of this repository is to provide hands-on experience with widely-used NoSQL technologies by:
 
 - Setting up and configuring each database
 
-- Exploring core concepts and data models
+- Understanding key concepts and data models
 
 - Performing CRUD operations
 
-- Implementing sample use cases
+- Implementing real-world use cases
 
-- Comparing performance and scalability
+- Comparing performance, scalability, and design trade-offs
